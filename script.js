@@ -11,7 +11,15 @@ class toDoItem {
 function newToDoItem() {
     let newItem = new toDoItem("clean", "Finish the dishes, and the laundry", "Monday", "High", "Checklist goes here")
     console.log(newItem);
-    // call DOM function to display newItem
+    addToDoItem(newItem);
 };
+
+function addToDoItem(toDoItem) {
+    const mainContent = document.querySelector(".main-content");
+    let toDoArea = document.createElement("div");
+    toDoArea.textContent = "New to do list!";
+    toDoArea.classList.add("to-do-item");
+    mainContent.appendChild(toDoArea);
+}
 
 newToDoItem();
