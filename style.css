@@ -45,7 +45,6 @@ h1, h2, h3, h4, h5, h6 {
 .all-content {
     display: flex;
     height: 100vh;
-    gap: 20px;
 }
 
 .main-sidebar {
@@ -53,6 +52,21 @@ h1, h2, h3, h4, h5, h6 {
     width: 25vw;
     max-width: 300px;
     min-width: 200px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 1;
+}
+
+.footer-nav {
+  border: 5px solid black;
+  position: absolute;
+  bottom: 0;
+  flex-grow: 1;
+  width: 100%;
 }
 
 .to-do-item {
