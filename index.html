@@ -23,8 +23,35 @@
                 <div class="to-do-priority">Priority here</div>
                 <div class="to-do-checklist">Checklist here</div>
             </div>
+            <form id="to-do-form" style="display: none;">
+                <div>
+                    <label for="title"> Enter title:</label>
+                    <input type="text" name="title" id="title" required />
+                </div>
+                <div>
+                    <label for="description">Enter Disc:</label>
+                    <input type="text" name="description" id="description"/>
+                </div>
+                <div>
+                    <label for="due-date">Enter due-date:</label>
+                    <input type="text" name="due-date" id="due-date"/>
+                </div>
+                <div>
+                    <label for="priority">Enter priority:</label>
+                    <input type="text" name="priority" id="priority"/>
+                </div>
+                <div>
+                    <label for="checklist">Enter checklist items:</label>
+                    <input type="text" name="checklist" id="checklist"/>
+                </div>
+                <div>
+                    <input type="submit" value="Enter">
+                </div>
+            </form>
             <footer class="footer-nav">
-                <div>Add new to-do</div>
+                <div>
+                    <button type="button" class="new-to-do">Add To-Do item</button>
+                </div>
                 <div>Search for a to-do</div>
             </footer>
         </div>

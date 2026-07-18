@@ -8,7 +8,12 @@ class toDoItem {
     }
 }
 
-function newToDoItem() {
+function CreateToDoItem() {
+    let addToDoBtn = document.querySelector(".new-to-do");
+    let toDoForm = document.querySelector("#to-do-form");
+    addToDoBtn.addEventListener("click", (e) => {
+        toDoForm.style.display = "block";
+    });
     let newItem = new toDoItem("clean", "Finish the dishes, and the laundry", "Monday", "High", "Checklist goes here")
     console.log(newItem);
     addToDoItem(newItem);
@@ -22,4 +27,4 @@ function addToDoItem(toDoItem) {
     mainContent.appendChild(toDoArea);
 }
 
-newToDoItem();
+CreateToDoItem();
