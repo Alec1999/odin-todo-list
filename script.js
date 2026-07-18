@@ -17,22 +17,31 @@ function createToDoItem() {
     });
 
     toDoForm.addEventListener("submit", (e) => {
-        event.preventDefault();
+        e.preventDefault();
 
         const formData = new FormData(toDoForm);
         const data = Object.fromEntries(formData);
 
         resetToDoForm(toDoForm);
-        testAddToDoItem(data);
+        addToDoItem(data);
         
         console.log(data);
     });
 }
 
-function addToDoItem(toDoItem) {
+function addToDoItem(formData) {
     const mainContent = document.querySelector(".main-content");
     let toDoArea = document.createElement("div");
-    toDoArea.textContent = "New to do list!";
+
+    let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
+
+    console.log("Due date is " + newToDo.dueDate);
+
+    for (const value of Object.values(newToDo)) {
+        console.log("Value is " + value);
+        toDoArea.append(value + ", ");
+    };
+
     toDoArea.classList.add("to-do-item");
     mainContent.appendChild(toDoArea);
 }
@@ -42,21 +51,3 @@ function resetToDoForm(toDoForm) {
 }
 
 createToDoItem();
-
-function testAddToDoItem(formData) {
-    const mainContent = document.querySelector(".main-content");
-    let toDoArea = document.createElement("div");
-    
-    let newToDo = new toDoItem("clean", "Finish the dishes", "Monday", "High", "Checklist goes here");
-
-    let itemTitle = newToDo.title;
-    let itemDescription = newToDo.description;
-    let itemDueDate = newToDo.dueDate;
-    let itemPriority = newToDo.priority;
-    let itemCheckList = newToDo.checklist;
-
-    toDoArea.append(itemTitle, ", ", itemDescription, ", ", itemDueDate, ", ", itemPriority, ", ", itemCheckList);
-    toDoArea.classList.add("to-do-item");
-    mainContent.appendChild(toDoArea);
-
-}
