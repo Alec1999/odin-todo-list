@@ -9,7 +9,7 @@ class toDoItem {
 }
 
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Title",  "description", "Due date", "Priority", "Checklist")
+    let defaultToDoItem = new toDoItem("Default To-do Title",  "description", "Due date", "Priority", "Checklist")
     addToDoItem(defaultToDoItem);
 }
 
@@ -40,7 +40,9 @@ function addToDoItem(formData) {
 
     for (const value of Object.values(newToDo)) {
         if (value) {
-            toDoArea.append(value + ", ");
+            const toDoLineItem = document.createElement("div");
+            toDoLineItem.textContent = value;
+            toDoArea.append(toDoLineItem);
         };
     };
 
