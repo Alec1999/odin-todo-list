@@ -8,6 +8,11 @@ class toDoItem {
     }
 }
 
+function createDefaultToDoItem() {
+    let defaultToDoItem = new toDoItem("Title",  "description", "Due date", "Priority", "Checklist")
+    addToDoItem(defaultToDoItem);
+}
+
 function createToDoItem() {
     let addToDoBtn = document.querySelector(".new-to-do");
     let toDoForm = document.querySelector("#to-do-form");
@@ -24,8 +29,6 @@ function createToDoItem() {
 
         resetToDoForm(toDoForm);
         addToDoItem(data);
-        
-        console.log(data);
     });
 }
 
@@ -35,10 +38,7 @@ function addToDoItem(formData) {
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
 
-    console.log("Due date is " + newToDo.dueDate);
-
     for (const value of Object.values(newToDo)) {
-        console.log("Value is " + value);
         toDoArea.append(value + ", ");
     };
 
@@ -50,4 +50,5 @@ function resetToDoForm(toDoForm) {
     toDoForm.style.display = "none";
 }
 
+createDefaultToDoItem();
 createToDoItem();
