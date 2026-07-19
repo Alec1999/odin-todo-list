@@ -39,7 +39,9 @@ function addToDoItem(formData) {
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
 
     for (const value of Object.values(newToDo)) {
-        toDoArea.append(value + ", ");
+        if (value) {
+            toDoArea.append(value + ", ");
+        };
     };
 
     toDoArea.classList.add("to-do-item");

@@ -29,11 +29,28 @@
                 </div>
                 <div>
                     <label for="due-date">Enter due-date:</label>
-                    <input type="text" name="dueDate" id="due-date"/>
+                    <input type="date" name="dueDate" id="due-date"/>
                 </div>
                 <div>
-                    <label for="priority">Enter priority:</label>
-                    <input type="text" name="priority" id="priority"/>
+                    <fieldset>
+                        <legend>Priority</legend>
+
+                        <label>
+                            <input type="radio" name="priority" value="High"/>
+                            High
+                        </label>
+                        
+                        <label>
+                            <input type="radio" name="priority" value="Medium"/>
+                            Medium
+                        </label>
+
+                        <label>
+                            <input type="radio" name="priority" value="Low"/>
+                            Low
+                        </label>
+
+                    </fieldset>
                 </div>
                 <div>
                     <label for="checklist">Enter checklist items:</label>
