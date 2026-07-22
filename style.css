@@ -65,6 +65,30 @@ input:user-invalid {
   flex-grow: 1;
 }
 
+.to-do-item {
+    border: 2px solid black;
+    width: 300px;
+    height: 300px;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.to-do-item > div {
+  width: 100%;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.minimized {
+  background-color: black;
+}
+
 .footer-nav {
   border: 5px solid black;
   position: absolute;
@@ -73,15 +97,4 @@ input:user-invalid {
   width: 100%;
 }
 
-.to-do-item {
-    border: 2px solid black;
-    width: 300px;
-    height: 300px;
-    margin: 50px;
-    display: flex;
-    flex-direction: column;
-}
 
-.to-do-item > div {
-  width: 100%;
-}

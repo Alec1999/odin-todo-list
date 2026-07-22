@@ -9,7 +9,8 @@ class toDoItem {
 }
 
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Default To-do Title",  "description", "Due date", "Priority", "Checklist")
+    let defaultToDoItem = new toDoItem("Default To-do Title",  "Description", "Due date", "Priority", "Checklist")
+    defaultToDoItem.id = crypto.randomUUID();
     addToDoItem(defaultToDoItem);
 }
 
@@ -35,8 +36,12 @@ function createToDoItem() {
 function addToDoItem(formData) {
     const mainContent = document.querySelector(".main-content");
     let toDoArea = document.createElement("div");
+    let toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "✏️";
+    toggleBtn.classList.add("toggle-btn")
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
+    newToDo.id = crypto.randomUUID(); 
 
     for (const value of Object.values(newToDo)) {
         if (value) {
@@ -47,6 +52,7 @@ function addToDoItem(formData) {
     };
 
     toDoArea.classList.add("to-do-item");
+    toDoArea.append(toggleBtn);
     mainContent.appendChild(toDoArea);
 }
 
@@ -56,3 +62,4 @@ function resetToDoForm(toDoForm) {
 
 createDefaultToDoItem();
 createToDoItem();
+selectToDoItem();
