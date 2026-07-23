@@ -9,7 +9,7 @@ class toDoItem {
 }
 
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Default To-do Title",  "Description", "Due date", "Priority", "Checklist")
+    let defaultToDoItem = new toDoItem("Default To-do Title",  "Description", "Due date", "Priority", "Checklist");
     defaultToDoItem.id = crypto.randomUUID();
     addToDoItem(defaultToDoItem);
 }
@@ -38,7 +38,7 @@ function addToDoItem(formData) {
     let toDoArea = document.createElement("div");
     let toggleBtn = document.createElement("button");
     toggleBtn.textContent = "✏️";
-    toggleBtn.classList.add("toggle-btn")
+    toggleBtn.classList.add("toggle-btn");
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
@@ -48,8 +48,8 @@ function addToDoItem(formData) {
             const toDoLineItem = document.createElement("div");
             toDoLineItem.textContent = value;
             toDoArea.append(toDoLineItem);
-        };
-    };
+        }
+    }
 
     toDoArea.append(toggleBtn);
     toDoArea.classList.add("to-do-item");
@@ -58,18 +58,18 @@ function addToDoItem(formData) {
 }
 
 function selectToDoItem() {
-    let toggleBtns = document.querySelectorAll(".toggle-btn")
-    toggleBtns.forEach(toggleBtn => {
-        toggleBtn.addEventListener("click", (e) => {
-            let toDoItem = toggleBtn.closest(".to-do-item");
+    const mainContent = document.querySelector(".main-content");
+
+    mainContent.addEventListener("click", (e) => {
+        if (e.target.classList.contains("toggle-btn")) {
+            let toDoItem = e.target.closest(".to-do-item");
             toggleToDoItem(toDoItem);
-        });
+        }
     });
 }
 
 function toggleToDoItem(toDoItem) {
     toDoItem.classList.toggle("minimized");
-
 }
 
 function resetToDoForm(toDoForm) {
