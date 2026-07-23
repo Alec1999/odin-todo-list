@@ -51,9 +51,25 @@ function addToDoItem(formData) {
         };
     };
 
-    toDoArea.classList.add("to-do-item");
     toDoArea.append(toggleBtn);
+    toDoArea.classList.add("to-do-item");
+    
     mainContent.appendChild(toDoArea);
+}
+
+function selectToDoItem() {
+    let toggleBtns = document.querySelectorAll(".toggle-btn")
+    toggleBtns.forEach(toggleBtn => {
+        toggleBtn.addEventListener("click", (e) => {
+            let toDoItem = toggleBtn.closest(".to-do-item");
+            toggleToDoItem(toDoItem);
+        });
+    });
+}
+
+function toggleToDoItem(toDoItem) {
+    toDoItem.classList.toggle("minimized");
+
 }
 
 function resetToDoForm(toDoForm) {

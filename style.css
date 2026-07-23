@@ -85,6 +85,10 @@ input:user-invalid {
   right: 10px;
 }
 
+.expandeded {
+  background-color: rgb(234, 232, 232);
+}
+
 .minimized {
   background-color: black;
 }
