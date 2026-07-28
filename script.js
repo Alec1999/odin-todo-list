@@ -45,7 +45,7 @@ function addToDoItem(formData) {
 
     for (const [key, value] of Object.entries(newToDo)) {
 
-        if (value) {
+        if (value != newToDo.id) {
             const toDoLineItem = document.createElement("div");
             toDoLineItem.textContent = value;
             toDoLineItem.classList.add(key);
