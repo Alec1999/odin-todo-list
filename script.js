@@ -43,10 +43,12 @@ function addToDoItem(formData) {
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
 
-    for (const value of Object.values(newToDo)) {
+    for (const [key, value] of Object.entries(newToDo)) {
+
         if (value) {
             const toDoLineItem = document.createElement("div");
             toDoLineItem.textContent = value;
+            toDoLineItem.classList.add(key);
             toDoArea.append(toDoLineItem);
         }
     }

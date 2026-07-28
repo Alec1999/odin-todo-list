@@ -68,7 +68,7 @@ input:user-invalid {
 .to-do-item {
     border: 2px solid black;
     width: 300px;
-    height: 300px;
+    max-height: 300px;
     margin: 50px;
     display: flex;
     flex-direction: column;
@@ -85,8 +85,11 @@ input:user-invalid {
   right: 10px;
 }
 
-.minimized {
-  background-color: black;
+.to-do-item.minimized .description,
+.to-do-item.minimized .dueDate,
+.to-do-item.minimized .priority,
+.to-do-item.minimized .checklist {
+  display: none;
 }
 
 .footer-nav {
