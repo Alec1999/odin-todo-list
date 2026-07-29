@@ -37,12 +37,12 @@ function addToDoItem(formData) {
     const mainContent = document.querySelector(".main-content");
     let toDoArea = document.createElement("div");
     let toggleBtn = document.createElement("button");
-    toggleBtn.insertAdjacentHTML('beforeend',
-            `<svg class="down-arrow-icon">
-                <use href="#icon-downarrow"></use>
-            </svg>`);
-    // toggleBtn.textContent = "✏️";
     toggleBtn.classList.add("toggle-btn");
+
+    toggleBtn.innerHTML = 
+                `<svg>
+                    <use href="#icon-uparrow"></use>
+                </svg>`;
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
@@ -77,7 +77,21 @@ function selectToDoItem() {
 }
 
 function toggleToDoItem(toDoItem) {
+    const toggleBtn = toDoItem.querySelector(".toggle-btn");
+
     toDoItem.classList.toggle("minimized");
+
+    if (toDoItem.classList.contains("minimized")) {
+        toggleBtn.innerHTML = 
+            `<svg>
+                <use href="#icon-downarrow"></use>
+            </svg>`;
+    }else {
+        toggleBtn.innerHTML = 
+            `<svg>
+                <use href="#icon-uparrow"></use>
+            </svg>`;
+    }
 }
 
 function resetToDoForm(toDoForm) {

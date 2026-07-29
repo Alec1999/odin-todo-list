@@ -92,12 +92,6 @@ input:user-invalid {
   padding: 0;
 }
 
-.down-arrow-icon {
-  display: block;
-  height: 30px;
-  width: 30px;
-}
-
 .to-do-item.minimized .description,
 .to-do-item.minimized .dueDate,
 .to-do-item.minimized .priority,
