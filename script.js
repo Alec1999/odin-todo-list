@@ -37,7 +37,11 @@ function addToDoItem(formData) {
     const mainContent = document.querySelector(".main-content");
     let toDoArea = document.createElement("div");
     let toggleBtn = document.createElement("button");
-    toggleBtn.textContent = "✏️";
+    toggleBtn.insertAdjacentHTML('beforeend',
+            `<svg class="down-arrow-icon">
+                <use href="#icon-downarrow"></use>
+            </svg>`);
+    // toggleBtn.textContent = "✏️";
     toggleBtn.classList.add("toggle-btn");
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
@@ -63,7 +67,9 @@ function selectToDoItem() {
     const mainContent = document.querySelector(".main-content");
 
     mainContent.addEventListener("click", (e) => {
-        if (e.target.classList.contains("toggle-btn")) {
+        const toggleBtn = e.target.closest(".toggle-btn");
+
+        if (toggleBtn) {
             let toDoItem = e.target.closest(".to-do-item");
             toggleToDoItem(toDoItem);
         }
