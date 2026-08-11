@@ -42,15 +42,7 @@ function addToDoItem(formData) {
     toggleBtn.classList.add("toggle-btn");
     deleteBtn.classList.add("delete-btn");
 
-    toggleBtn.innerHTML = 
-                `<svg>
-                    <use href="#icon-uparrow"></use>
-                </svg>`;
-
-    deleteBtn.innerHTML = 
-                `<svg>
-                    <use href="#icon-trashcan-closed"></use>
-                </svg>`;
+    renderIcons(toggleBtn, deleteBtn);
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
@@ -107,6 +99,32 @@ function toggleToDoItem(toDoItem) {
                 <use href="#icon-uparrow"></use>
             </svg>`;
     }
+}
+
+function renderIcons(toggleBtn, deleteBtn) {
+    toggleBtn.innerHTML = 
+        `<svg>
+            <use href="#icon-uparrow"></use>
+        </svg>`;
+
+    deleteBtn.innerHTML = 
+        `<svg>
+            <use href="#icon-trashcan-closed"></use>
+        </svg>`;
+
+    deleteBtn.addEventListener("mouseenter", () => {
+        deleteBtn.innerHTML =
+            `<svg>
+                <use href="#icon-trashcan-open"></use>
+            </svg>`;
+    })
+
+    deleteBtn.addEventListener("mouseleave", () => {
+        deleteBtn.innerHTML =
+            `<svg>
+                <use href="#icon-trashcan-closed"></use>
+            </svg>`;
+    })
 }
 
 function deleteToDoItem(toDoItem) {
