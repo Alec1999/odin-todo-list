@@ -78,7 +78,9 @@ function selectToDoItem() {
 
         if (deleteBtn) {
             let toDoItem = e.target.closest(".to-do-item");
-            deleteToDoItem(toDoItem);
+            if (confirm("Are you sure you want to delete this to-do item?")) {
+                deleteToDoItem(toDoItem);
+            }
         }
     });
 }
