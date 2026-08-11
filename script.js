@@ -47,6 +47,11 @@ function addToDoItem(formData) {
                     <use href="#icon-uparrow"></use>
                 </svg>`;
 
+    deleteBtn.innerHTML = 
+                `<svg>
+                    <use href="#icon-trashcan-closed"></use>
+                </svg>`;
+
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
 

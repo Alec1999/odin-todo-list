@@ -79,7 +79,7 @@ input:user-invalid {
   width: 100%;
 }
 
-.toggle-btn {
+.toggle-btn, .delete-btn {
   position: absolute;
   right: 0px;
   height: 24px;
@@ -93,17 +93,7 @@ input:user-invalid {
 }
 
  .delete-btn {
-  position: absolute;
-  right: 0px;
   bottom: 0px;
-  height: 24px;
-  width: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* border: none;
-  background: none; */
-  padding: 0;
  }
 
 .to-do-item.minimized .description,
