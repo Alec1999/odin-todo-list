@@ -37,7 +37,10 @@ function addToDoItem(formData) {
     const mainContent = document.querySelector(".main-content");
     let toDoArea = document.createElement("div");
     let toggleBtn = document.createElement("button");
+    let deleteBtn = document.createElement("button");
+
     toggleBtn.classList.add("toggle-btn");
+    deleteBtn.classList.add("delete-btn");
 
     toggleBtn.innerHTML = 
                 `<svg>
@@ -58,6 +61,7 @@ function addToDoItem(formData) {
     }
 
     toDoArea.append(toggleBtn);
+    toDoArea.append(deleteBtn);
     toDoArea.classList.add("to-do-item");
     
     mainContent.appendChild(toDoArea);
@@ -68,10 +72,16 @@ function selectToDoItem() {
 
     mainContent.addEventListener("click", (e) => {
         const toggleBtn = e.target.closest(".toggle-btn");
+        const deleteBtn = e.target.closest(".delete-btn");
 
         if (toggleBtn) {
             let toDoItem = e.target.closest(".to-do-item");
             toggleToDoItem(toDoItem);
+        }
+
+        if (deleteBtn) {
+            let toDoItem = e.target.closest(".to-do-item");
+            deleteToDoItem(toDoItem);
         }
     });
 }
@@ -86,12 +96,16 @@ function toggleToDoItem(toDoItem) {
             `<svg>
                 <use href="#icon-downarrow"></use>
             </svg>`;
-    }else {
+    } else {
         toggleBtn.innerHTML = 
             `<svg>
                 <use href="#icon-uparrow"></use>
             </svg>`;
     }
+}
+
+function deleteToDoItem(toDoItem) {
+    toDoItem.remove();
 }
 
 function resetToDoForm(toDoForm) {
