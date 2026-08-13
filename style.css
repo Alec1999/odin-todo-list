@@ -92,14 +92,14 @@ input:user-invalid {
   padding: 0;
 }
 
+ .delete-btn{
+  bottom: 0px;
+ }
+
 .toggle-btn svg, .delete-btn svg {
   height: 24px;
   width: 24px;
 }
-
- .delete-btn{
-  bottom: 0px;
- }
 
 .to-do-item.minimized .description,
 .to-do-item.minimized .priority,

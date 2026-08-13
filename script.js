@@ -42,7 +42,7 @@ function addToDoItem(formData) {
     toggleBtn.classList.add("toggle-btn");
     deleteBtn.classList.add("delete-btn");
 
-    renderIcons(toggleBtn, deleteBtn);
+    renderIcons(toggleBtn, deleteBtn, toDoArea);
 
     let newToDo = new toDoItem(formData.title, formData.description, formData.dueDate, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
@@ -110,7 +110,7 @@ function toggleToDoItem(toDoItem) {
     }
 }
 
-function renderIcons(toggleBtn, deleteBtn) {
+function renderIcons(toggleBtn, deleteBtn, toDoArea) {
     toggleBtn.innerHTML = 
         `<svg>
             <use href="#icon-uparrow"></use>
@@ -120,19 +120,23 @@ function renderIcons(toggleBtn, deleteBtn) {
         `<svg>
             <use href="#icon-trashcan-closed"></use>
         </svg>`;
-
+  
     deleteBtn.addEventListener("mouseenter", () => {
-        deleteBtn.innerHTML =
-            `<svg>
-                <use href="#icon-trashcan-open"></use>
-            </svg>`;
+        if (!toDoArea.classList.contains("minimized")) {
+            deleteBtn.innerHTML =
+                `<svg>
+                    <use href="#icon-trashcan-open"></use>
+                </svg>`;
+        }
     })
 
     deleteBtn.addEventListener("mouseleave", () => {
-        deleteBtn.innerHTML =
-            `<svg>
-                <use href="#icon-trashcan-closed"></use>
-            </svg>`;
+        if (!toDoArea.classList.contains("minimized")) {
+            deleteBtn.innerHTML =
+                `<svg>
+                    <use href="#icon-trashcan-closed"></use>
+                </svg>`;
+        }
     })
 }
 
