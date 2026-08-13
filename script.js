@@ -87,6 +87,7 @@ function selectToDoItem() {
 
 function toggleToDoItem(toDoItem) {
     const toggleBtn = toDoItem.querySelector(".toggle-btn");
+    const deleteBtn = toDoItem.querySelector(".delete-btn");
 
     toDoItem.classList.toggle("minimized");
 
@@ -95,11 +96,17 @@ function toggleToDoItem(toDoItem) {
             `<svg>
                 <use href="#icon-downarrow"></use>
             </svg>`;
+        
+        deleteBtn.innerHTML = ' ';
     } else {
         toggleBtn.innerHTML = 
             `<svg>
                 <use href="#icon-uparrow"></use>
             </svg>`;
+
+        deleteBtn.innerHTML = `<svg>
+            <use href="#icon-trashcan-closed"></use>
+        </svg>`;
     }
 }
 
