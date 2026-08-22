@@ -92,7 +92,13 @@ input:user-invalid {
   padding: 0;
 }
 
- .delete-btn{
+.edit-btn {
+  right: 24px;
+  height: 24px;
+  width: 24px;
+}
+
+ .delete-btn, .edit-btn {
   bottom: 0px;
  }
 
