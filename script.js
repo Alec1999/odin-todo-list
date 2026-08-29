@@ -8,13 +8,21 @@ class toDoItem {
     }
 }
 
-let addToDoBtn = document.querySelector(".new-to-do");
+const addToDoBtn = document.querySelector(".new-to-do");
 let currentId = null;
-let toDoForm = document.querySelector("#to-do-form");
+const mainContent = document.querySelector(".main-content");
+const toDoForm = document.querySelector("#to-do-form");
 
 function initializeEventListeners() {
-    let addToDoBtn = document.querySelector(".new-to-do");
-    let toDoForm = document.querySelector("#to-do-form");
+    mainContent.addEventListener("click", (e) => {
+    const deleteBtn = e.target.closest(".delete-btn");
+    const editBtn = e.target.closest(".edit-btn");
+    const toggleBtn = e.target.closest(".toggle-btn");
+
+    let toDoItem = e.target.closest(".to-do-item");
+    
+    selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem);
+    });
 
     addToDoBtn.addEventListener("click", (e) => {
         showToDoForm();
@@ -42,7 +50,6 @@ function showToDoForm(todoItem) {
 }
 
 function createToDoItem() {
-
     const formData = new FormData(toDoForm);
     const data = Object.fromEntries(formData);
 
@@ -84,31 +91,21 @@ function addToDoItem(formData) {
     mainContent.appendChild(toDoArea);
 }
 
-function selectToDoItem() {
-    const mainContent = document.querySelector(".main-content");
+function selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem) {
+    if (toggleBtn) {
+        toggleToDoItem(toDoItem);
+    }
 
-    mainContent.addEventListener("click", (e) => {
-        const toggleBtn = e.target.closest(".toggle-btn");
-        const editBtn = e.target.closest(".edit-btn");
-        const deleteBtn = e.target.closest(".delete-btn");
+    if (editBtn) {
+        currentId = toDoItem.id;
+        showToDoForm(toDoItem);
+    }
 
-        let toDoItem = e.target.closest(".to-do-item");
-
-        if (toggleBtn) {
-            toggleToDoItem(toDoItem);
+    if (deleteBtn) {
+        if (confirm("Are you sure you want to delete this to-do item?")) {
+            deleteToDoItem(toDoItem);
         }
-
-        if (editBtn) {
-            currentId = toDoItem.id;
-            showToDoForm(toDoItem);;
-        }
-
-        if (deleteBtn) {
-            if (confirm("Are you sure you want to delete this to-do item?")) {
-                deleteToDoItem(toDoItem);
-            }
-        }
-    });
+    }
 }
 
 function renderIcons(toggleBtn, deleteBtn, toDoArea) {
