@@ -15,13 +15,13 @@ const toDoForm = document.querySelector("#to-do-form");
 
 function initializeEventListeners() {
     mainContent.addEventListener("click", (e) => {
-    const deleteBtn = e.target.closest(".delete-btn");
-    const editBtn = e.target.closest(".edit-btn");
-    const toggleBtn = e.target.closest(".toggle-btn");
+        const deleteBtn = e.target.closest(".delete-btn");
+        const editBtn = e.target.closest(".edit-btn");
+        const toggleBtn = e.target.closest(".toggle-btn");
 
-    let toDoItem = e.target.closest(".to-do-item");
-    
-    selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem);
+        let toDoItem = e.target.closest(".to-do-item");
+        
+        selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem);
     });
 
     addToDoBtn.addEventListener("click", (e) => {
@@ -40,23 +40,20 @@ function initializeEventListeners() {
 }
 
 function initializeRenderIcons(deleteBtn, toDoArea) {
-    deleteBtn.addEventListener("mouseenter", () => {
-        if (!toDoArea.classList.contains("minimized")) {
-            deleteBtn.innerHTML =
-                `<svg>
-                    <use href="#icon-trashcan-open"></use>
-                </svg>`;
-        }
-    })
+    deleteBtn.addEventListener("mouseenter", updateTrashIcon)
+    deleteBtn.addEventListener("mouseleave", updateTrashIcon)
 
-    deleteBtn.addEventListener("mouseleave", () => {
+    function updateTrashIcon(e) {
         if (!toDoArea.classList.contains("minimized")) {
-            deleteBtn.innerHTML =
-                `<svg>
-                    <use href="#icon-trashcan-closed"></use>
-                </svg>`;
+            deleteBtn.innerHTML = e.type === "mouseenter" 
+                ?   `<svg>
+                        <use href="#icon-trashcan-open"></use>
+                    </svg>`
+                :    `<svg>
+                        <use href="#icon-trashcan-closed"></use>
+                    </svg>`;
         }
-    })
+    }
 }
 
 function createDefaultToDoItem() {
@@ -166,7 +163,7 @@ function toggleToDoItem(toDoItem) {
 }
 
 function editToDoItem(toDoItem, id) {
-    toDoForm.style.display = "none";
+    resetToDoForm(toDoForm);
 }
 
 function deleteToDoItem(toDoItem) {
@@ -179,4 +176,3 @@ function resetToDoForm(toDoForm) {
 
 initializeEventListeners();
 createDefaultToDoItem();
-selectToDoItem();
