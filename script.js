@@ -18,7 +18,6 @@ function initializeEventListeners() {
         const deleteBtn = e.target.closest(".delete-btn");
         const editBtn = e.target.closest(".edit-btn");
         const toggleBtn = e.target.closest(".toggle-btn");
-
         let toDoItem = e.target.closest(".to-do-item");
         
         selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem);
@@ -34,7 +33,7 @@ function initializeEventListeners() {
         if (!currentId) {
             createToDoItem();        
         } else {
-            editToDoItem();
+            editToDoItem(currentId);
         }
     });
 }
@@ -162,7 +161,17 @@ function toggleToDoItem(toDoItem) {
     }
 }
 
-function editToDoItem(toDoItem, id) {
+function editToDoItem(id) {
+    const toDoItem = document.getElementById(id);
+
+    const title = toDoItem.getElementsByClassName("title");
+    const dueDate = toDoItem.getElementsByClassName("dueDate");
+    const description = toDoItem.getElementsByClassName("description");
+    const priority = toDoItem.getElementsByClassName("priority");
+    const checklist = toDoItem.getElementsByClassName("checklist");
+
+    currentId = null;
+
     resetToDoForm(toDoForm);
 }
 
