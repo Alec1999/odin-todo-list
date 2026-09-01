@@ -99,9 +99,9 @@ function addToDoItem(formData) {
     }
 
     toDoArea.id = newToDo.id;
-    toDoArea.append(toggleBtn);
-    toDoArea.append(editBtn);
     toDoArea.append(deleteBtn);
+    toDoArea.append(editBtn);
+    toDoArea.append(toggleBtn);
     toDoArea.classList.add("to-do-item");
     
     mainContent.appendChild(toDoArea);
@@ -170,9 +170,17 @@ function editToDoItem(id) {
     const priority = toDoItem.getElementsByClassName("priority");
     const checklist = toDoItem.getElementsByClassName("checklist");
 
+    title[0].textContent = toDoForm.elements["title"].value;
+    dueDate[0].textContent = toDoForm.elements["dueDate"].value;
+    description[0].textContent = toDoForm.elements["description"].value;
+    priority[0].textContent = toDoForm.elements["priority"].value;
+    checklist[0].textContent = toDoForm.elements["checklist"].value;
+
     currentId = null;
 
     resetToDoForm(toDoForm);
+
+    // show form again, with default values as current values, on resubmit, input current form values
 }
 
 function deleteToDoItem(toDoItem) {
