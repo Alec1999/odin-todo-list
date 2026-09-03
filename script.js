@@ -61,7 +61,7 @@ function createDefaultToDoItem() {
     addToDoItem(defaultToDoItem);
 }
 
-function showToDoForm(todoItem) {
+function showToDoForm() {
     toDoForm.style.display = "block";
 }
 
@@ -114,7 +114,8 @@ function selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem) {
 
     if (editBtn) {
         currentId = toDoItem.id;
-        showToDoForm(toDoItem);
+        showToDoForm();
+        populateForm(currentId);
     }
 
     if (deleteBtn) {
@@ -161,6 +162,22 @@ function toggleToDoItem(toDoItem) {
     }
 }
 
+function populateForm(id) {
+    const toDoItem = document.getElementById(id);
+
+    const title = toDoItem.getElementsByClassName("title");
+    const dueDate = toDoItem.getElementsByClassName("dueDate");
+    const description = toDoItem.getElementsByClassName("description");
+    const priority = toDoItem.getElementsByClassName("priority");
+    const checklist = toDoItem.getElementsByClassName("checklist");
+
+    toDoForm.elements["title"].value = title[0].textContent;
+    toDoForm.elements["dueDate"].value = dueDate[0].textContent;
+    toDoForm.elements["description"].value = description[0].textContent;
+    toDoForm.elements["priority"].value = priority[0].textContent;
+    toDoForm.elements["checklist"].value = checklist[0].textContent;
+}
+
 function editToDoItem(id) {
     const toDoItem = document.getElementById(id);
 
@@ -173,13 +190,15 @@ function editToDoItem(id) {
     title[0].textContent = toDoForm.elements["title"].value;
     dueDate[0].textContent = toDoForm.elements["dueDate"].value;
     description[0].textContent = toDoForm.elements["description"].value;
-    priority[0].textContent = toDoForm.elements["priority"].value;
+    priority[0].textContent = "Priority: " + toDoForm.elements["priority"].value;
     checklist[0].textContent = toDoForm.elements["checklist"].value;
 
     currentId = null;
 
     resetToDoForm(toDoForm);
 
+    // when edit button pressed, show form, input current values into form, on submit, run this function
+ 
     // show form again, with default values as current values, on resubmit, input current form values
 }
 
