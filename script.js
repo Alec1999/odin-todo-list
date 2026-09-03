@@ -13,6 +13,8 @@ let currentId = null;
 const mainContent = document.querySelector(".main-content");
 const toDoForm = document.querySelector("#to-do-form");
 
+const todaysDate = getTodaysDate();
+
 function initializeEventListeners() {
     mainContent.addEventListener("click", (e) => {
         const deleteBtn = e.target.closest(".delete-btn");
@@ -55,8 +57,18 @@ function initializeRenderIcons(deleteBtn, toDoArea) {
     }
 }
 
+function getTodaysDate() {
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1);
+    const day = String(today.getDate());
+
+    return `${month}-${day}-${year}`;
+}
+
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Default To-do Title", "Due date", "Description", "Priority", "Checklist");
+    let defaultToDoItem = new toDoItem("Default To-do Title", todaysDate, "Description", "Priority", "Checklist");
     defaultToDoItem.id = crypto.randomUUID();
     addToDoItem(defaultToDoItem);
 }
