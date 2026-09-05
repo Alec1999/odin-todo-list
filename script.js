@@ -219,9 +219,11 @@ function editToDoItem(id) {
     const description = toDoItem.getElementsByClassName("description");
     const priority = toDoItem.getElementsByClassName("priority");
     const checklist = toDoItem.getElementsByClassName("checklist");
+    
+    const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
     title[0].textContent = toDoForm.elements["title"].value;
-    dueDate[0].textContent = toDoForm.elements["dueDate"].value;
+    dueDate[0].textContent = formattedDate;
     description[0].textContent = toDoForm.elements["description"].value;
     priority[0].textContent = "Priority: " + toDoForm.elements["priority"].value;
     checklist[0].textContent = toDoForm.elements["checklist"].value;
