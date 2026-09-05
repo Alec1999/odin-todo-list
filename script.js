@@ -67,9 +67,6 @@ function getTodaysDate() {
 }
 
 function formatDate(dateString) {
-
-    console.log(dateString);
-
     const [year, month, day] = dateString.split("-");
 
     const date = new Date(year, month - 1, day);
@@ -95,7 +92,7 @@ function createToDoItem() {
     const formData = new FormData(toDoForm);
     const data = Object.fromEntries(formData);
 
-    resetToDoForm(toDoForm);
+    hideToDoForm(toDoForm);
     addToDoItem(data);
 }
 
@@ -115,19 +112,26 @@ function addToDoItem(formData) {
     renderIcons(toggleBtn, deleteBtn);
     initializeRenderIcons(deleteBtn, toDoArea);
 
-    let newToDo = new toDoItem(formData.title, formattedDate, formData.description, formData.priority, formData.checklist);
+    let newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
 
     for (const [key, value] of Object.entries(newToDo)) {
         if (value != newToDo.id) {
             const toDoLineItem = document.createElement("div");
             toDoLineItem.classList.add(key);
-            toDoLineItem.textContent = value;
+
+            if (key === "dueDate") {
+                toDoLineItem.textContent = formatDate(value)
+            } else {
+                toDoLineItem.textContent = value;
+            }  
             toDoArea.append(toDoLineItem);
         }
     }
 
     toDoArea.id = newToDo.id;
+    toDoArea.dataset.dueDate = newToDo.dueDate;
+
     toDoArea.append(deleteBtn);
     toDoArea.append(editBtn);
     toDoArea.append(toggleBtn);
@@ -198,10 +202,10 @@ function populateForm(id) {
     const dueDate = toDoItem.getElementsByClassName("dueDate");
     const description = toDoItem.getElementsByClassName("description");
     const priority = toDoItem.getElementsByClassName("priority");
-    const checklist = toDoItem.getElementsByClassName("checklist");
+    const checklist = toDoItem.getElementsByClassName("checklist")
 
     toDoForm.elements["title"].value = title[0].textContent;
-    toDoForm.elements["dueDate"].value = dueDate[0].textContent;
+    toDoForm.elements["dueDate"].value = toDoItem.dataset.dueDate;
     toDoForm.elements["description"].value = description[0].textContent;
     toDoForm.elements["priority"].value = priority[0].textContent;
     toDoForm.elements["checklist"].value = checklist[0].textContent;
@@ -224,14 +228,14 @@ function editToDoItem(id) {
 
     currentId = null;
 
-    resetToDoForm(toDoForm);
+    hideToDoForm(toDoForm);
 }
 
 function deleteToDoItem(toDoItem) {
     toDoItem.remove();
 }
 
-function resetToDoForm(toDoForm) {
+function hideToDoForm(toDoForm) {
     toDoForm.style.display = "none";
 }
 
