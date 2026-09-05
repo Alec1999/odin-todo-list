@@ -11,9 +11,8 @@ class toDoItem {
 const addToDoBtn = document.querySelector(".new-to-do");
 let currentId = null;
 const mainContent = document.querySelector(".main-content");
-const toDoForm = document.querySelector("#to-do-form");
-
 const todaysDate = getTodaysDate();
+const toDoForm = document.querySelector("#to-do-form");
 
 function initializeEventListeners() {
     mainContent.addEventListener("click", (e) => {
@@ -61,10 +60,25 @@ function getTodaysDate() {
     const today = new Date();
 
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1);
-    const day = String(today.getDate());
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
 
-    return `${month}-${day}-${year}`;
+    return `${year}-${month}-${day}`;
+}
+
+function formatDate(dateString) {
+
+    console.log(dateString);
+
+    const [year, month, day] = dateString.split("-");
+
+    const date = new Date(year, month - 1, day);
+
+    return date.toLocaleDateString(undefined, {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric"
+    });
 }
 
 function createDefaultToDoItem() {
@@ -91,6 +105,9 @@ function addToDoItem(formData) {
     let editBtn = document.createElement("button");
     let deleteBtn = document.createElement("button");
 
+    const dueDate = formData.dueDate;
+    const formattedDate = formatDate(dueDate);
+
     toggleBtn.classList.add("toggle-btn");
     editBtn.classList.add("edit-btn");
     deleteBtn.classList.add("delete-btn");
@@ -98,7 +115,7 @@ function addToDoItem(formData) {
     renderIcons(toggleBtn, deleteBtn);
     initializeRenderIcons(deleteBtn, toDoArea);
 
-    let newToDo = new toDoItem(formData.title, formData.dueDate, formData.description, formData.priority, formData.checklist);
+    let newToDo = new toDoItem(formData.title, formattedDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
 
     for (const [key, value] of Object.entries(newToDo)) {
@@ -208,10 +225,6 @@ function editToDoItem(id) {
     currentId = null;
 
     resetToDoForm(toDoForm);
-
-    // when edit button pressed, show form, input current values into form, on submit, run this function
- 
-    // show form again, with default values as current values, on resubmit, input current form values
 }
 
 function deleteToDoItem(toDoItem) {
