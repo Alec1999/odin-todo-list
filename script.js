@@ -196,38 +196,39 @@ function toggleToDoItem(toDoItem) {
     }
 }
 
-function populateForm(id) {
+function getToDoElements(id) {
     const toDoItem = document.getElementById(id);
 
-    const title = toDoItem.getElementsByClassName("title");
-    const dueDate = toDoItem.getElementsByClassName("dueDate");
-    const description = toDoItem.getElementsByClassName("description");
-    const priority = toDoItem.getElementsByClassName("priority");
-    const checklist = toDoItem.getElementsByClassName("checklist")
+    return {
+        toDoItem,
+        title: toDoItem.getElementsByClassName("title")[0],
+        dueDate: toDoItem.getElementsByClassName("dueDate")[0],
+        description: toDoItem.getElementsByClassName("description")[0],
+        priority: toDoItem.getElementsByClassName("priority")[0],
+        checklist: toDoItem.getElementsByClassName("checklist")[0]
+    }
+}
 
-    toDoForm.elements["title"].value = title[0].textContent;
+function populateForm(id) {
+    const { toDoItem, title, dueDate, description, priority, checklist } = getToDoElements(id);
+
+    toDoForm.elements["title"].value = title.textContent;
     toDoForm.elements["dueDate"].value = toDoItem.dataset.dueDate;
-    toDoForm.elements["description"].value = description[0].textContent;
-    toDoForm.elements["priority"].value = priority[0].textContent;
-    toDoForm.elements["checklist"].value = checklist[0].textContent;
+    toDoForm.elements["description"].value = description.textContent;
+    toDoForm.elements["priority"].value = priority.textContent;
+    toDoForm.elements["checklist"].value = checklist.textContent;
 }
 
 function editToDoItem(id) {
-    const toDoItem = document.getElementById(id);
-
-    const title = toDoItem.getElementsByClassName("title");
-    const dueDate = toDoItem.getElementsByClassName("dueDate");
-    const description = toDoItem.getElementsByClassName("description");
-    const priority = toDoItem.getElementsByClassName("priority");
-    const checklist = toDoItem.getElementsByClassName("checklist");
+    const { title, dueDate, description, priority, checklist } = getToDoElements(id);
     
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
-    title[0].textContent = toDoForm.elements["title"].value;
-    dueDate[0].textContent = formattedDate;
-    description[0].textContent = toDoForm.elements["description"].value;
-    priority[0].textContent = "Priority: " + toDoForm.elements["priority"].value;
-    checklist[0].textContent = toDoForm.elements["checklist"].value;
+    title.textContent = toDoForm.elements["title"].value;
+    dueDate.textContent = formattedDate;
+    description.textContent = toDoForm.elements["description"].value;
+    priority.textContent = "Priority: " + toDoForm.elements["priority"].value;
+    checklist.textContent = toDoForm.elements["checklist"].value;
 
     currentId = null;
 
