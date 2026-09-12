@@ -232,10 +232,19 @@ function editToDoItem(id) {
     currentId = null;
 
     hideToDoForm(toDoForm);
+    resetToDoForm(toDoForm);
 }
 
 function deleteToDoItem(toDoItem) {
     toDoItem.remove();
+}
+
+function resetToDoForm(toDoForm) {
+    toDoForm.elements["title"].value = "";
+    toDoForm.elements["dueDate"].value = "";
+    toDoForm.elements["description"].value = "";
+    toDoForm.elements["priority"].value = "";
+    toDoForm.elements["checklist"].value = "";
 }
 
 function hideToDoForm(toDoForm) {
