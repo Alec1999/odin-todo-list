@@ -131,6 +131,7 @@ function addToDoItem(formData) {
 
     toDoArea.id = newToDo.id;
     toDoArea.dataset.dueDate = newToDo.dueDate;
+    toDoArea.dataset.priority = newToDo.priority;
 
     toDoArea.append(deleteBtn);
     toDoArea.append(editBtn);
