@@ -210,18 +210,17 @@ function getToDoElements(id) {
 }
 
 function populateForm(id) {
-    const { toDoItem, title, dueDate, description, priority, checklist } = getToDoElements(id);
+    const { toDoItem, title, description, priority, checklist } = getToDoElements(id);
 
     toDoForm.elements["title"].value = title.textContent;
     toDoForm.elements["dueDate"].value = toDoItem.dataset.dueDate;
     toDoForm.elements["description"].value = description.textContent;
-    toDoForm.elements["priority"].value = priority.textContent;
+    toDoForm.elements["priority"].value = priority.textContent.split(" ")[1];
     toDoForm.elements["checklist"].value = checklist.textContent;
 }
 
 function editToDoItem(id) {
     const { title, dueDate, description, priority, checklist } = getToDoElements(id);
-    
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
     title.textContent = toDoForm.elements["title"].value;
@@ -231,7 +230,6 @@ function editToDoItem(id) {
     checklist.textContent = toDoForm.elements["checklist"].value;
 
     currentId = null;
-
     hideToDoForm(toDoForm);
     resetToDoForm(toDoForm);
 }
@@ -244,8 +242,11 @@ function resetToDoForm(toDoForm) {
     toDoForm.elements["title"].value = "";
     toDoForm.elements["dueDate"].value = "";
     toDoForm.elements["description"].value = "";
-    toDoForm.elements["priority"].value = "";
     toDoForm.elements["checklist"].value = "";
+
+    toDoForm.querySelectorAll('input[name="priority"]').forEach(radio => {
+        radio.checked = false;
+    });
 }
 
 function hideToDoForm(toDoForm) {
