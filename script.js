@@ -137,7 +137,8 @@ function addToDoItem(formData) {
     toDoArea.append(editBtn);
     toDoArea.append(toggleBtn);
     toDoArea.classList.add("to-do-item");
-    
+
+    toggleToDoItem(toDoArea);
     mainContent.appendChild(toDoArea);
 }
 
