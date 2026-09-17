@@ -42,55 +42,59 @@
             <div>The final thing here</div>
         </nav>
 
-        <section class="main-content">
-            <form id="to-do-form" style="display: none;">
-                <div>
-                    <label for="title"> Enter title:</label>
-                    <input type="text" name="title" id="title" required />
-                </div>
-                <div>
-                    <label for="due-date">Enter due-date:</label>
-                    <input type="date" name="dueDate" id="due-date" required/>
-                </div>
-                <div>
-                    <label for="description">Enter desc:</label>
-                    <input type="text" name="description" id="description"/>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>Priority</legend>
+        <section class="main-section">
+            <div class="main-content">
+                <form id="to-do-form" style="display: none;">
+                    <div>
+                        <label for="title"> Enter title:</label>
+                        <input type="text" name="title" id="title" required />
+                    </div>
+                    <div>
+                        <label for="due-date">Enter due-date:</label>
+                        <input type="date" name="dueDate" id="due-date" required/>
+                    </div>
+                    <div>
+                        <label for="description">Enter desc:</label>
+                        <input type="text" name="description" id="description"/>
+                    </div>
+                    <div>
+                        <fieldset>
+                            <legend>Priority</legend>
 
-                        <label>
-                            <input type="radio" name="priority" value="High"/>
-                            High
-                        </label>
-                        
-                        <label>
-                            <input type="radio" name="priority" value="Medium"/>
-                            Medium
-                        </label>
+                            <label>
+                                <input type="radio" name="priority" value="High"/>
+                                High
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="priority" value="Medium"/>
+                                Medium
+                            </label>
 
-                        <label>
-                            <input type="radio" name="priority" value="Low"/>
-                            Low
-                        </label>
+                            <label>
+                                <input type="radio" name="priority" value="Low"/>
+                                Low
+                            </label>
 
-                    </fieldset>
-                </div>
-                <div>
-                    <label for="checklist">Enter checklist items:</label>
-                    <input type="text" name="checklist" id="checklist"/>
-                </div>
-                <div>
-                    <input type="submit" value="Enter">
-                </div>
-            </form>
+                        </fieldset>
+                    </div>
+                    <div>
+                        <label for="checklist">Enter checklist items:</label>
+                        <input type="text" name="checklist" id="checklist"/>
+                    </div>
+                    <div>
+                        <input type="submit" value="Enter">
+                    </div>
+                </form>
+            </div>
+            
             <footer class="footer-nav">
                 <div>
                     <button type="button" class="new-to-do">Add To-Do item</button>
                 </div>
                 <div>Search for a to-do</div>
             </footer>
+
         </section>
     </main>
 </body>

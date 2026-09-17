@@ -1,3 +1,5 @@
+// Make main content area- scrollable, whiule nav and footer stay stuck to bottom
+
 class toDoItem {
     constructor(title, dueDate, description, priority, checklist) {
         this.title = title;
@@ -253,6 +255,8 @@ function resetToDoForm(toDoForm) {
 function hideToDoForm(toDoForm) {
     toDoForm.style.display = "none";
 }
+
+
 
 initializeEventListeners();
 createDefaultToDoItem();
