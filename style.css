@@ -67,6 +67,7 @@ input:user-invalid {
 }
 
 .main-content {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -74,6 +75,7 @@ input:user-invalid {
   justify-items: center;
   overflow-y: auto;
   min-height: 0;
+  align-items: start;
 }
 
 .to-do-item {
@@ -127,8 +129,7 @@ input:user-invalid {
 .footer-nav {
   border: 2px solid black;
   background-color: white;
-  bottom: 0;
-  flex-grow: 1;
+  flex-shrink: 0;
   width: 100%;
 }
 

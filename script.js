@@ -256,12 +256,5 @@ function hideToDoForm(toDoForm) {
     toDoForm.style.display = "none";
 }
 
-function loopDefaultStart() {
-    for (i = 0; i < 30; i++) {
-        createDefaultToDoItem()
-    }
-}
-
 initializeEventListeners();
 createDefaultToDoItem();
-loopDefaultStart();
