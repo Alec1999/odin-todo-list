@@ -111,7 +111,7 @@ function addToDoItem(formData) {
     editBtn.classList.add("edit-btn");
     deleteBtn.classList.add("delete-btn");
 
-    renderIcons(toggleBtn, deleteBtn);
+    renderIcons(toggleBtn, editBtn, deleteBtn);
     initializeRenderIcons(deleteBtn, toDoArea);
 
     let newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
@@ -162,10 +162,15 @@ function selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem) {
     }
 }
 
-function renderIcons(toggleBtn, deleteBtn) {
+function renderIcons(toggleBtn, editBtn, deleteBtn) {
     toggleBtn.innerHTML = 
         `<svg>
             <use href="#icon-uparrow"></use>
+        </svg>`;
+
+    editBtn.innerHTML =
+        `<svg>
+            <use href="#icon-pencil"></use>
         </svg>`;
 
     deleteBtn.innerHTML = 

@@ -106,16 +106,16 @@ input:user-invalid {
 }
 
 .edit-btn {
-  right: 24px;
-  height: 24px;
   width: 24px;
+  border: none;
+  padding: 0;
 }
 
  .delete-btn, .edit-btn {
   bottom: 0px;
  }
 
-.toggle-btn svg, .delete-btn svg {
+.toggle-btn svg, .edit-btn svg, .delete-btn svg {
   height: 24px;
   width: 24px;
 }
