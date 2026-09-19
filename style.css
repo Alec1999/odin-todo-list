@@ -107,8 +107,8 @@ input:user-invalid {
 
 .edit-btn {
   width: 24px;
-  border: none;
   padding: 0;
+  border: none;
 }
 
  .delete-btn, .edit-btn {
@@ -124,6 +124,10 @@ input:user-invalid {
 .to-do-item.minimized .priority,
 .to-do-item.minimized .checklist {
   display: none;
+}
+
+.enlarge {
+  transform: scale(1.2);
 }
 
 .footer-nav {

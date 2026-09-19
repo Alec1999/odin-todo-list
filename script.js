@@ -41,9 +41,24 @@ function initializeEventListeners() {
     });
 }
 
-function initializeRenderIcons(deleteBtn, toDoArea) {
+function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
     deleteBtn.addEventListener("mouseenter", updateTrashIcon)
     deleteBtn.addEventListener("mouseleave", updateTrashIcon)
+
+    editBtn.addEventListener("mouseenter", updatePencilIcon)
+    editBtn.addEventListener("mouseleave", updatePencilIcon)
+
+    function updatePencilIcon(e) {
+        editBtn.innerHTML = e.type === "mouseenter" 
+            ?   `<svg>
+                    <use href="#icon-pencil"></use>
+                </svg>`
+            :    `<svg>
+                    <use href="#icon-pencil-outline"></use>
+                </svg>`;
+
+        editBtn.querySelector("svg").classList.toggle("enlarge", e.type === "mouseenter");
+    }
 
     function updateTrashIcon(e) {
         if (!toDoArea.classList.contains("minimized")) {
@@ -112,7 +127,7 @@ function addToDoItem(formData) {
     deleteBtn.classList.add("delete-btn");
 
     renderIcons(toggleBtn, editBtn, deleteBtn);
-    initializeRenderIcons(deleteBtn, toDoArea);
+    initializeRenderIcons(deleteBtn, editBtn, toDoArea);
 
     let newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
@@ -170,7 +185,7 @@ function renderIcons(toggleBtn, editBtn, deleteBtn) {
 
     editBtn.innerHTML =
         `<svg>
-            <use href="#icon-pencil"></use>
+            <use href="#icon-pencil-outline"></use>
         </svg>`;
 
     deleteBtn.innerHTML = 
