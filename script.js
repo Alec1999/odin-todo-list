@@ -96,7 +96,7 @@ function formatDate(dateString) {
 }
 
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Default To-do Title", todaysDate, "Description", "Priority", "Checklist");
+    let defaultToDoItem = new toDoItem("Default To-do Title", todaysDate, "Description", "Priority: High", "Item 1, Item 2, Item 3");
     defaultToDoItem.id = crypto.randomUUID();
     addToDoItem(defaultToDoItem);
 }
@@ -120,7 +120,6 @@ function addToDoItem(formData) {
     let deleteBtn = document.createElement("button");
 
     const dueDate = formData.dueDate;
-    const formattedDate = formatDate(dueDate);
 
     toggleBtn.classList.add("toggle-btn");
     editBtn.classList.add("edit-btn");
@@ -131,6 +130,7 @@ function addToDoItem(formData) {
 
     let newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
+    const checklist = renderCheckList(newToDo.checklist);
 
     for (const [key, value] of Object.entries(newToDo)) {
         if (value != newToDo.id) {
@@ -139,7 +139,7 @@ function addToDoItem(formData) {
 
             if (key === "dueDate") {
                 toDoLineItem.textContent = formatDate(value)
-            } else {
+            } else if (key !== "checklist") {
                 toDoLineItem.textContent = value;
             }  
             toDoArea.append(toDoLineItem);
@@ -153,6 +153,7 @@ function addToDoItem(formData) {
     toDoArea.append(deleteBtn);
     toDoArea.append(editBtn);
     toDoArea.append(toggleBtn);
+    toDoArea.append(checklist);
     toDoArea.classList.add("to-do-item");
 
     toggleToDoItem(toDoArea);
@@ -217,6 +218,30 @@ function toggleToDoItem(toDoItem) {
             <use href="#icon-trashcan-closed"></use>
         </svg>`;
     }
+}
+
+function renderCheckList(checklistString) {
+    const checklistContainer = document.createElement("div");
+    checklistContainer.classList.add("checklist");
+
+    checklistArr = checklistString.split(",")
+
+    checklistArr.forEach((item, index) => {
+        const label = document.createElement("label");
+        label.classList.add("checklist-item");
+
+        const checkbox = document.createElement("input")
+        checkbox.type = "checkbox";
+        checkbox.checked = item.checked;
+        checkbox.dataset.index = index;
+
+        const text = document.createElement("span");
+        text.textContent = item.text;
+        label.append(checkbox, text);
+        checklistContainer.appendChild(label);
+    });
+
+    return checklistContainer;
 }
 
 function getToDoElements(id) {
