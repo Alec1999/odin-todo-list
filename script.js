@@ -21,7 +21,7 @@ function initializeEventListeners() {
         const deleteBtn = e.target.closest(".delete-btn");
         const editBtn = e.target.closest(".edit-btn");
         const toggleBtn = e.target.closest(".toggle-btn");
-        let toDoItem = e.target.closest(".to-do-item");
+        const toDoItem = e.target.closest(".to-do-item");
         
         selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem);
     });
@@ -159,6 +159,8 @@ function addToDoItem(formData) {
 
     toggleToDoItem(toDoArea);
     mainContent.appendChild(toDoArea);
+
+    resetToDoForm(toDoForm);
 }
 
 function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
