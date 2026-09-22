@@ -49,7 +49,8 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
     editBtn.addEventListener("mouseleave", updatePencilIcon)
 
     function updatePencilIcon(e) {
-        editBtn.innerHTML = e.type === "mouseenter" 
+        if (!toDoArea.classList.contains("minimized")) {
+                    editBtn.innerHTML = e.type === "mouseenter" 
             ?   `<svg>
                     <use href="#icon-pencil"></use>
                 </svg>`
@@ -58,6 +59,7 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
                 </svg>`;
 
         editBtn.querySelector("svg").classList.toggle("enlarge", e.type === "mouseenter");
+        }
     }
 
     function updateTrashIcon(e) {
