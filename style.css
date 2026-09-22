@@ -92,32 +92,48 @@ input:user-invalid {
   width: 100%;
 }
 
-.toggle-btn, .delete-btn {
+.delete-btn {
   position: absolute;
   right: 0px;
+  bottom: 0px;
   height: 24px;
   width: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border: none;
-  background: none;
   padding: 0;
 }
 
-.edit-btn {
+.edit-btn, .toggle-btn {
   width: 24px;
   padding: 0;
   border: none;
 }
-
- .delete-btn, .edit-btn {
-  bottom: 0px;
- }
 
 .toggle-btn svg, .edit-btn svg, .delete-btn svg {
   height: 24px;
   width: 24px;
+}
+
+.button-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.checklist {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .to-do-item.minimized .description,

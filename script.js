@@ -23,7 +23,7 @@ function initializeEventListeners() {
         const toggleBtn = e.target.closest(".toggle-btn");
         let toDoItem = e.target.closest(".to-do-item");
         
-        selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem);
+        selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem);
     });
 
     addToDoBtn.addEventListener("click", (e) => {
@@ -114,21 +114,23 @@ function createToDoItem() {
 }
 
 function addToDoItem(formData) {
-    let toDoArea = document.createElement("div");
-    let toggleBtn = document.createElement("button");
-    let editBtn = document.createElement("button");
-    let deleteBtn = document.createElement("button");
+    const toDoArea = document.createElement("div");
+    const toggleBtn = document.createElement("button");
+    const editBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
+    const buttonContainer = document.createElement("div");
 
     const dueDate = formData.dueDate;
 
     toggleBtn.classList.add("toggle-btn");
     editBtn.classList.add("edit-btn");
     deleteBtn.classList.add("delete-btn");
+    buttonContainer.classList.add("button-container");
 
     renderIcons(toggleBtn, editBtn, deleteBtn);
     initializeRenderIcons(deleteBtn, editBtn, toDoArea);
 
-    let newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
+    const newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
     const checklist = renderCheckList(newToDo.checklist);
 
@@ -146,21 +148,20 @@ function addToDoItem(formData) {
         }
     }
 
+    buttonContainer.append(editBtn, toggleBtn)
+
     toDoArea.id = newToDo.id;
     toDoArea.dataset.dueDate = newToDo.dueDate;
     toDoArea.dataset.priority = newToDo.priority;
 
-    toDoArea.append(deleteBtn);
-    toDoArea.append(editBtn);
-    toDoArea.append(toggleBtn);
-    toDoArea.append(checklist);
+    toDoArea.append(buttonContainer, checklist, deleteBtn);
     toDoArea.classList.add("to-do-item");
 
     toggleToDoItem(toDoArea);
     mainContent.appendChild(toDoArea);
 }
 
-function selectToDoItem(e, deleteBtn, editBtn, toggleBtn, toDoItem) {
+function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
     if (toggleBtn) {
         toggleToDoItem(toDoItem);
     }
@@ -197,6 +198,7 @@ function renderIcons(toggleBtn, editBtn, deleteBtn) {
 
 function toggleToDoItem(toDoItem) {
     let toggleBtn = toDoItem.querySelector(".toggle-btn");
+    let editBtn = toDoItem.querySelector(".edit-btn");
     let deleteBtn = toDoItem.querySelector(".delete-btn");
 
     toDoItem.classList.toggle("minimized");
@@ -207,12 +209,17 @@ function toggleToDoItem(toDoItem) {
                 <use href="#icon-downarrow"></use>
             </svg>`;
         
+        editBtn.innerHTML = ' ';
         deleteBtn.innerHTML = ' ';
     } else {
         toggleBtn.innerHTML = 
             `<svg>
                 <use href="#icon-uparrow"></use>
             </svg>`;
+
+        editBtn.innerHTML = `<svg>
+            <use href="#icon-pencil-outline"></use>
+        </svg>`;    
 
         deleteBtn.innerHTML = `<svg>
             <use href="#icon-trashcan-closed"></use>
@@ -224,7 +231,7 @@ function renderCheckList(checklistString) {
     const checklistContainer = document.createElement("div");
     checklistContainer.classList.add("checklist");
 
-    checklistArr = checklistString.split(",")
+    const checklistArr = checklistString.split(",")
 
     checklistArr.forEach((item, index) => {
         const label = document.createElement("label");
@@ -232,11 +239,11 @@ function renderCheckList(checklistString) {
 
         const checkbox = document.createElement("input")
         checkbox.type = "checkbox";
-        checkbox.checked = item.checked;
+        checkbox.checked = false;
         checkbox.dataset.index = index;
 
         const text = document.createElement("span");
-        text.textContent = item.text;
+        text.textContent = item;
         label.append(checkbox, text);
         checklistContainer.appendChild(label);
     });
