@@ -50,15 +50,15 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
 
     function updatePencilIcon(e) {
         if (!toDoArea.classList.contains("minimized")) {
-                    editBtn.innerHTML = e.type === "mouseenter" 
-            ?   `<svg>
-                    <use href="#icon-pencil"></use>
-                </svg>`
-            :    `<svg>
-                    <use href="#icon-pencil-outline"></use>
-                </svg>`;
+            editBtn.innerHTML = e.type === "mouseenter" 
+                ?   `<svg>
+                        <use href="#icon-pencil"></use>
+                    </svg>`
+                :    `<svg>
+                        <use href="#icon-pencil-outline"></use>
+                    </svg>`;
 
-        editBtn.querySelector("svg").classList.toggle("enlarge", e.type === "mouseenter");
+            editBtn.querySelector("svg").classList.toggle("enlarge", e.type === "mouseenter");
         }
     }
 
@@ -170,17 +170,20 @@ function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
         toggleToDoItem(toDoItem);
     }
 
-    if (editBtn) {
-        currentId = toDoItem.id;
-        showToDoForm();
-        populateForm(currentId);
-    }
+    if (!toDoItem.classList.contains("minimized")) {
+        if (editBtn) {
+            currentId = toDoItem.id;
+            showToDoForm();
+            populateForm(currentId);
+        }
 
-    if (deleteBtn) {
-        if (confirm("Are you sure you want to delete this to-do item?")) {
-            deleteToDoItem(toDoItem);
+        if (deleteBtn) {
+            if (confirm("Are you sure you want to delete this to-do item?")) {
+                deleteToDoItem(toDoItem);
+            }
         }
     }
+
 }
 
 function renderIcons(toggleBtn, editBtn, deleteBtn) {
