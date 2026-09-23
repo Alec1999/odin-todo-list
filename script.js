@@ -134,16 +134,21 @@ function addToDoItem(formData) {
 
     const newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
     newToDo.id = crypto.randomUUID(); 
-    const checklist = renderCheckList(newToDo.checklist);
 
     for (const [key, value] of Object.entries(newToDo)) {
         if (value != newToDo.id) {
+
+            if (key === "checklist") {
+                toDoArea.append(renderCheckList(value));
+                continue;
+            }
+
             const toDoLineItem = document.createElement("div");
             toDoLineItem.classList.add(key);
 
             if (key === "dueDate") {
                 toDoLineItem.textContent = formatDate(value)
-            } else if (key !== "checklist") {
+            } else {
                 toDoLineItem.textContent = value;
             }  
             toDoArea.append(toDoLineItem);
@@ -156,7 +161,7 @@ function addToDoItem(formData) {
     toDoArea.dataset.dueDate = newToDo.dueDate;
     toDoArea.dataset.priority = newToDo.priority;
 
-    toDoArea.append(buttonContainer, checklist, deleteBtn);
+    toDoArea.append(buttonContainer, deleteBtn);
     toDoArea.classList.add("to-do-item");
 
     toggleToDoItem(toDoArea);
@@ -272,18 +277,35 @@ function getToDoElements(id) {
 }
 
 function populateForm(id) {
+
     const { toDoItem, title, description, priority, checklist } = getToDoElements(id);
 
     toDoForm.elements["title"].value = title.textContent;
     toDoForm.elements["dueDate"].value = toDoItem.dataset.dueDate;
     toDoForm.elements["description"].value = description.textContent;
     toDoForm.elements["priority"].value = priority.textContent.split(" ")[1];
-    toDoForm.elements["checklist"].value = checklist.textContent;
+
+    const checklistItems = checklist.querySelectorAll(".checklist-item");
+
+    const checklistText = [];
+
+    checklistItems.forEach(item => {
+        const text = item.querySelector("span")
+        checklistText.push(text.textContent);
+    });
+
+    toDoForm.elements["checklist"].value = checklistText.join(",");
 }
 
 function editToDoItem(id) {
     const { title, dueDate, description, priority, checklist } = getToDoElements(id);
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
+
+    let checklistItems = [];
+
+    for (i = 0; i < checklist.length; i++) {
+        checklistItems.push(checklist[i]);
+    }
 
     title.textContent = toDoForm.elements["title"].value;
     dueDate.textContent = formattedDate;
@@ -295,6 +317,10 @@ function editToDoItem(id) {
     hideToDoForm(toDoForm);
     resetToDoForm(toDoForm);
 }
+
+// create empty arr
+// add every element inside checklist to array
+// loop over array, each time adding to checklist element, seperated by a comma
 
 function deleteToDoItem(toDoItem) {
     toDoItem.remove();
