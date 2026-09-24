@@ -100,12 +100,14 @@ input:user-invalid {
   width: 24px;
   border: none;
   padding: 0;
+  background-color: white;
 }
 
 .edit-btn, .toggle-btn {
   width: 24px;
   padding: 0;
   border: none;
+  background-color: white;
 }
 
 .toggle-btn svg, .edit-btn svg, .delete-btn svg {

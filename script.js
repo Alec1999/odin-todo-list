@@ -1,5 +1,3 @@
-// Make main content area- scrollable, whiule nav and footer stay stuck to bottom
-
 class toDoItem {
     constructor(title, dueDate, description, priority, checklist) {
         this.title = title;
@@ -15,6 +13,7 @@ let currentId = null;
 const mainContent = document.querySelector(".main-content");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
+const toDoItems = [];
 
 function initializeEventListeners() {
     mainContent.addEventListener("click", (e) => {
@@ -117,11 +116,10 @@ function createToDoItem() {
 
 function addToDoItem(formData) {
     const toDoArea = document.createElement("div");
+    const buttonContainer = document.createElement("div");
     const toggleBtn = document.createElement("button");
     const editBtn = document.createElement("button");
     const deleteBtn = document.createElement("button");
-    const buttonContainer = document.createElement("div");
-
     const dueDate = formData.dueDate;
 
     toggleBtn.classList.add("toggle-btn");
@@ -139,7 +137,12 @@ function addToDoItem(formData) {
         if (value != newToDo.id) {
 
             if (key === "checklist") {
-                toDoArea.append(renderCheckList(value));
+                const checklistData = value.split(",").map(item => ({
+                    text: item.trim(),
+                    checked: false
+                }));
+
+                toDoArea.append(renderCheckList(checklistData));
                 continue;
             }
 
@@ -167,6 +170,7 @@ function addToDoItem(formData) {
     toggleToDoItem(toDoArea);
     mainContent.appendChild(toDoArea);
 
+    toDoItems.push(newToDo);
     resetToDoForm(toDoForm);
 }
 
@@ -239,28 +243,51 @@ function toggleToDoItem(toDoItem) {
     }
 }
 
-function renderCheckList(checklistString) {
+function renderCheckList(checklistData) {
     const checklistContainer = document.createElement("div");
     checklistContainer.classList.add("checklist");
 
-    const checklistArr = checklistString.split(",")
-
-    checklistArr.forEach((item, index) => {
+    checklistData.forEach((item, index) => {
         const label = document.createElement("label");
         label.classList.add("checklist-item");
 
         const checkbox = document.createElement("input")
         checkbox.type = "checkbox";
-        checkbox.checked = false;
+        checkbox.checked = item.checked;
         checkbox.dataset.index = index;
 
         const text = document.createElement("span");
-        text.textContent = item;
+        text.textContent = item.text;
+
         label.append(checkbox, text);
         checklistContainer.appendChild(label);
     });
 
     return checklistContainer;
+}
+
+function getChecklistData(checklist, checklistString) {
+    const checkListItems = checklist.querySelectorAll(".checklist-item");
+
+    const oldItems = Array.from(checkListItems).map(item => {
+        return {
+            text: item.querySelector("span").textContent,
+            checked: item.querySelector("input").checked
+        };
+    });
+
+    const newItems = checklistString.split(",");
+
+    return newItems.map(item => {
+        const text = item.trim();
+
+        const oldItem = oldItems.find(oldItem => oldItem.text === text);
+
+        return {
+            text: text,
+            checked: oldItem ? oldItem.checked : false
+        };
+    });
 }
 
 function getToDoElements(id) {
@@ -277,7 +304,6 @@ function getToDoElements(id) {
 }
 
 function populateForm(id) {
-
     const { toDoItem, title, description, priority, checklist } = getToDoElements(id);
 
     toDoForm.elements["title"].value = title.textContent;
@@ -286,7 +312,6 @@ function populateForm(id) {
     toDoForm.elements["priority"].value = priority.textContent.split(" ")[1];
 
     const checklistItems = checklist.querySelectorAll(".checklist-item");
-
     const checklistText = [];
 
     checklistItems.forEach(item => {
@@ -298,29 +323,25 @@ function populateForm(id) {
 }
 
 function editToDoItem(id) {
-    const { title, dueDate, description, priority, checklist } = getToDoElements(id);
+    const { toDoItem, title, dueDate, description, priority, checklist } = getToDoElements(id);
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
-    let checklistItems = [];
-
-    for (i = 0; i < checklist.length; i++) {
-        checklistItems.push(checklist[i]);
-    }
+    const checklistString = toDoForm.elements["checklist"].value;
+    const checklistData = getChecklistData(checklist, checklistString);
+    const currentItem = toDoItems.find((toDo) => toDo.id === id); 
 
     title.textContent = toDoForm.elements["title"].value;
     dueDate.textContent = formattedDate;
     description.textContent = toDoForm.elements["description"].value;
     priority.textContent = "Priority: " + toDoForm.elements["priority"].value;
-    checklist.textContent = toDoForm.elements["checklist"].value;
+
+    currentItem.checklist = checklistData;
+    checklist.replaceWith(renderCheckList(checklistData));
 
     currentId = null;
     hideToDoForm(toDoForm);
     resetToDoForm(toDoForm);
 }
-
-// create empty arr
-// add every element inside checklist to array
-// loop over array, each time adding to checklist element, seperated by a comma
 
 function deleteToDoItem(toDoItem) {
     toDoItem.remove();
