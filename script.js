@@ -344,7 +344,15 @@ function editToDoItem(id) {
 }
 
 function deleteToDoItem(toDoItem) {
+    for (let i = 0; i < toDoItems.length; i++) {
+        if (toDoItems[i].id == toDoItem.id) {
+            toDoItems.splice(i, 1);
+            break;
+        } 
+    }
+
     toDoItem.remove();
+    hideToDoForm(toDoForm);
 }
 
 function resetToDoForm(toDoForm) {
