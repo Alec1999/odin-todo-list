@@ -13,7 +13,15 @@ let currentId = null;
 const toDoContent = document.querySelector(".to-do-container");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
-const projects = [];
+
+const projects = [
+    {
+        id: crypto.randomUUID(),
+        name: "Default Project",
+        todos: []
+    }
+];
+
 let currentProject = projects[0];
 
 function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
@@ -81,9 +89,12 @@ function selectProject(project) {
 }
 
 function renderToDos() {
+    console.log("renderToDos ran");
+    console.log("Todos being rendered:", currentProject.todos);
     toDoContent.innerHTML = "";
 
     for (const toDo of currentProject.todos) {
+        console.log("Rendering:", toDo);
         renderToDo(toDo);
     }
 }
@@ -167,9 +178,27 @@ function formatDate(dateString) {
 }
 
 function createDefaultToDoItem() {
-    let defaultToDoItem = new toDoItem("Default To-do Title", todaysDate, "Description", "Priority: High", "Item 1, Item 2, Item 3");
+
+    const checklistData = "Item 1, Item 2, Item 3".split(",").map(item => ({
+        text: item.trim(),
+        checked: false
+    }));
+
+    let defaultToDoItem = new toDoItem(
+        "Default To-do Title",
+        todaysDate,
+        "Description",
+        "Priority: High",
+        checklistData
+    );
+
     defaultToDoItem.id = crypto.randomUUID();
-    addToDoItem(defaultToDoItem);
+    currentProject.todos.push(defaultToDoItem);
+
+    console.log("Project:", currentProject);
+    console.log("Todos:", currentProject.todos);
+
+    renderToDos();
 }
 
 function showToDoForm() {
