@@ -54,10 +54,11 @@
     <main class="all-content">
 
         <nav class="main-sidebar">
-            <div>Something here</div>
-            <div>Something else here</div>
-            <div>A third thing here</div>
-            <div>The final thing here</div>
+            <button class="project-btn">Default project</button>
+            <button class="project-btn">Project 2</button>
+            <button class="project-btn">Project 3</button>
+
+            <button id="add-project-btn">+ Add Project</button>
         </nav>
 
         <section class="main-section">
@@ -72,7 +73,7 @@
                         <input type="date" name="dueDate" id="due-date" required/>
                     </div>
                     <div>
-                        <label for="description">Enter desc:</label>
+                        <label for="description">Enter description:</label>
                         <input type="text" name="description" id="description"/>
                     </div>
                     <div>
@@ -97,13 +98,18 @@
                         </fieldset>
                     </div>
                     <div>
-                        <label for="checklist">Enter checklist items:</label>
+                        <label for="checklist">Enter checklist items: </label>
                         <input type="text" name="checklist" id="checklist"/>
+                        <small> Seperate each item with a comma.</small>
                     </div>
+                    <br>
                     <div>
                         <input type="submit" value="Enter">
                     </div>
                 </form>
+                <div class="to-do-container">
+
+                </div>
             </div>
             
             <footer class="footer-nav">

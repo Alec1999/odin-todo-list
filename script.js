@@ -10,35 +10,11 @@ class toDoItem {
 
 const addToDoBtn = document.querySelector(".new-to-do");
 let currentId = null;
-const mainContent = document.querySelector(".main-content");
+const toDoContent = document.querySelector(".to-do-container");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
-const toDoItems = [];
-
-function initializeEventListeners() {
-    mainContent.addEventListener("click", (e) => {
-        const deleteBtn = e.target.closest(".delete-btn");
-        const editBtn = e.target.closest(".edit-btn");
-        const toggleBtn = e.target.closest(".toggle-btn");
-        const toDoItem = e.target.closest(".to-do-item");
-        
-        selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem);
-    });
-
-    addToDoBtn.addEventListener("click", (e) => {
-        showToDoForm();
-    });
-
-    toDoForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        if (!currentId) {
-            createToDoItem();        
-        } else {
-            editToDoItem(currentId);
-        }
-    });
-}
+const projects = [];
+let currentProject = projects[0];
 
 function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
     deleteBtn.addEventListener("mouseenter", updateTrashIcon)
@@ -72,6 +48,100 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
                     </svg>`;
         }
     }
+}
+
+function initializeEventListeners() {
+    toDoContent.addEventListener("click", (e) => {
+        const deleteBtn = e.target.closest(".delete-btn");
+        const editBtn = e.target.closest(".edit-btn");
+        const toggleBtn = e.target.closest(".toggle-btn");
+        const toDoItem = e.target.closest(".to-do-item");
+        
+        selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem);
+    });
+
+    addToDoBtn.addEventListener("click", (e) => {
+        showToDoForm();
+    });
+
+    toDoForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (!currentId) {
+            createToDoItem();        
+        } else {
+            editToDoItem(currentId);
+        }
+    });
+}
+
+function selectProject(project) {
+    currentProject = project;
+    renderToDos();
+}
+
+function renderToDos() {
+    toDoContent.innerHTML = "";
+
+    for (const toDo of currentProject.todos) {
+        renderToDo(toDo);
+    }
+}
+
+function renderToDo(toDo) {
+    const toDoArea = document.createElement("div");
+
+    const buttonContainer = document.createElement("div");
+    const toggleBtn = document.createElement("button");
+    const editBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
+
+    buttonContainer.classList.add("button-container");
+    toggleBtn.classList.add("toggle-btn");
+    editBtn.classList.add("edit-btn");
+    deleteBtn.classList.add("delete-btn");
+
+    initializeRenderIcons(deleteBtn, editBtn, toDoArea);
+    renderIcons(toggleBtn, editBtn, deleteBtn);
+
+     for (const [key, value] of Object.entries(toDo)) {
+        if (value != toDo.id) {
+
+            if (key === "checklist") {
+                toDoArea.append(renderCheckList(value));
+                continue;
+            }
+
+            const toDoLineItem = document.createElement("div");
+            toDoLineItem.classList.add(key);
+
+            if (key === "dueDate") {
+                toDoLineItem.textContent = formatDate(value)
+            } else {
+                toDoLineItem.textContent = value;
+            }  
+            toDoArea.append(toDoLineItem);
+        }
+    }
+
+    buttonContainer.append(editBtn, toggleBtn)
+
+    toDoArea.id = toDo.id;
+    toDoArea.dataset.dueDate = toDo.dueDate;
+    toDoArea.dataset.priority = toDo.priority;
+
+    toDoArea.append(buttonContainer, deleteBtn);
+    toDoArea.classList.add("to-do-item");
+
+    toggleToDoItem(toDoArea);
+    toDoContent.appendChild(toDoArea);
+}
+
+function getChecklistData(checklistString) {
+    return checklistString.split(",").map(item => ({
+        text: item.trim(),
+        checked: false
+    }));
 }
 
 function getTodaysDate() {
@@ -115,62 +185,21 @@ function createToDoItem() {
 }
 
 function addToDoItem(formData) {
-    const toDoArea = document.createElement("div");
-    const buttonContainer = document.createElement("div");
-    const toggleBtn = document.createElement("button");
-    const editBtn = document.createElement("button");
-    const deleteBtn = document.createElement("button");
-    const dueDate = formData.dueDate;
+    const checklistData = getChecklistData(formData.checklist);
 
-    toggleBtn.classList.add("toggle-btn");
-    editBtn.classList.add("edit-btn");
-    deleteBtn.classList.add("delete-btn");
-    buttonContainer.classList.add("button-container");
+    const newToDo = new toDoItem(
+        formData.title,
+        formData.dueDate,
+        formData.description,
+        formData.priority,
+        checklistData
+    );
+    
+    newToDo.id = crypto.randomUUID();
 
-    renderIcons(toggleBtn, editBtn, deleteBtn);
-    initializeRenderIcons(deleteBtn, editBtn, toDoArea);
+    currentProject.todos.push(newToDo)
 
-    const newToDo = new toDoItem(formData.title, dueDate, formData.description, formData.priority, formData.checklist);
-    newToDo.id = crypto.randomUUID(); 
-
-    for (const [key, value] of Object.entries(newToDo)) {
-        if (value != newToDo.id) {
-
-            if (key === "checklist") {
-                const checklistData = value.split(",").map(item => ({
-                    text: item.trim(),
-                    checked: false
-                }));
-
-                toDoArea.append(renderCheckList(checklistData));
-                continue;
-            }
-
-            const toDoLineItem = document.createElement("div");
-            toDoLineItem.classList.add(key);
-
-            if (key === "dueDate") {
-                toDoLineItem.textContent = formatDate(value)
-            } else {
-                toDoLineItem.textContent = value;
-            }  
-            toDoArea.append(toDoLineItem);
-        }
-    }
-
-    buttonContainer.append(editBtn, toggleBtn)
-
-    toDoArea.id = newToDo.id;
-    toDoArea.dataset.dueDate = newToDo.dueDate;
-    toDoArea.dataset.priority = newToDo.priority;
-
-    toDoArea.append(buttonContainer, deleteBtn);
-    toDoArea.classList.add("to-do-item");
-
-    toggleToDoItem(toDoArea);
-    mainContent.appendChild(toDoArea);
-
-    toDoItems.push(newToDo);
+    renderToDos();
     resetToDoForm(toDoForm);
 }
 
@@ -345,7 +374,7 @@ function editToDoItem(id) {
 
 function deleteToDoItem(toDoItem) {
     for (let i = 0; i < toDoItems.length; i++) {
-        if (toDoItems[i].id == toDoItem.id) {
+        if (toDoItems[i].id === toDoItem.id) {
             toDoItems.splice(i, 1);
             break;
         } 

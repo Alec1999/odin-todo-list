@@ -65,7 +65,7 @@ input:user-invalid {
   flex: 1;
   min-height: 0;
 }
-
+/* 
 .main-content {
   flex: 1;
   display: grid;
@@ -76,6 +76,21 @@ input:user-invalid {
   overflow-y: auto;
   min-height: 0;
   align-items: start;
+} */
+
+.main-content {
+    flex: 1;
+    padding-top: 30px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.to-do-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: start;
 }
 
 .to-do-item {
