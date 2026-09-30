@@ -386,7 +386,7 @@ function editToDoItem(id) {
 
     const checklistString = toDoForm.elements["checklist"].value;
     const checklistData = getChecklistData(checklist, checklistString);
-    const currentItem = toDoItems.find((toDo) => toDo.id === id); 
+    const currentItem = currentProject.todos.find((toDo) => toDo.id === id); 
 
     title.textContent = toDoForm.elements["title"].value;
     dueDate.textContent = formattedDate;
