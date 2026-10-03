@@ -10,7 +10,8 @@ class toDoItem {
 
 const addToDoBtn = document.querySelector(".new-to-do");
 let currentId = null;
-const sideBarContent = document.querySelector(".main-sidebar")
+const defaultProjectBtn = document.querySelector("#default-project-btn");
+const sideBarContent = document.querySelector(".main-sidebar");
 const toDoContent = document.querySelector(".to-do-container");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
@@ -61,6 +62,8 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
 }
 
 function initializeEventListeners() {
+    let projectName = "";
+
     sideBarContent.addEventListener("click", (e) => {
         const addProjectBtn = e.target.closest("#add-project-btn")
         const projectBtn = e.target.closest(".project-btn")
@@ -70,7 +73,9 @@ function initializeEventListeners() {
         }
 
         if (projectBtn) {
-            // selectProject(project)
+            const selectedProjectID = e.target.dataset.projectId;
+            console.log(selectedProjectID)
+            // selectProject(selectedProject)
         }
     });
 
@@ -80,9 +85,8 @@ function initializeEventListeners() {
 
         if (submitBtn) {
             e.preventDefault();
-            let projectName = projectForm.elements["project-name"].value;
+            projectName = projectForm.elements["project-name"].value;
             createProject(projectName)
-            selectProject(projectName)
         }
 
         if (cancelBtn) {
@@ -117,8 +121,17 @@ function initializeEventListeners() {
 }
 
 function createProject(projectName) {
+    const newProject = {
+        id: crypto.randomUUID(),
+        name: projectName,
+        todos: []
+    };
+    projects.push(newProject);
+
     const newProjectBtn = document.createElement("button")
     newProjectBtn.textContent = projectName;
+    newProjectBtn.dataset.projectId = newProject.id;
+    newProjectBtn.classList.add("project-btn");
     sideBarContent.appendChild(newProjectBtn);
 
     hideProjectForm();  
@@ -126,8 +139,8 @@ function createProject(projectName) {
 }
 
 function selectProject(project) {
-    currentProject = project;
-    renderToDos();
+    // currentProject = project;
+    // renderToDos();
 }
 
 function renderToDos() {
@@ -217,7 +230,6 @@ function formatDate(dateString) {
 }
 
 function createDefaultToDoItem() {
-
     const checklistData = "Item 1, Item 2, Item 3".split(",").map(item => ({
         text: item.trim(),
         checked: false
@@ -232,6 +244,7 @@ function createDefaultToDoItem() {
     );
 
     defaultToDoItem.id = crypto.randomUUID();
+    defaultProjectBtn.dataset.projectId = defaultToDoItem.id;
     currentProject.todos.push(defaultToDoItem);
 
     renderToDos();
