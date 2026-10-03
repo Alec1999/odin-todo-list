@@ -74,8 +74,10 @@ function initializeEventListeners() {
 
         if (projectBtn) {
             const selectedProjectID = e.target.dataset.projectId;
-            console.log(selectedProjectID)
-            // selectProject(selectedProject)
+            const selectedProject = projects.find(
+                project => project.id === selectedProjectID
+            );
+            selectProject(selectedProject)
         }
     });
 
@@ -136,11 +138,13 @@ function createProject(projectName) {
 
     hideProjectForm();  
     resetProjectForm();
+
+    // Select newly made project
 }
 
 function selectProject(project) {
-    // currentProject = project;
-    // renderToDos();
+    currentProject = project;
+    renderToDos();
 }
 
 function renderToDos() {
@@ -200,7 +204,7 @@ function renderToDo(toDo) {
     toDoContent.appendChild(toDoArea);
 }
 
-function getChecklistData(checklistString) {
+function createChecklistData(checklistString) {
     return checklistString.split(",").map(item => ({
         text: item.trim(),
         checked: false
@@ -259,7 +263,7 @@ function createToDoItem() {
 }
 
 function addToDoItem(formData) {
-    const checklistData = getChecklistData(formData.checklist);
+    const checklistData = createChecklistData(formData.checklist);
 
     const newToDo = new toDoItem(
         formData.title,
@@ -368,7 +372,7 @@ function renderCheckList(checklistData) {
     return checklistContainer;
 }
 
-function getChecklistData(checklist, checklistString) {
+function UpdateChecklistData(checklist, checklistString) {
     const checkListItems = checklist.querySelectorAll(".checklist-item");
 
     const oldItems = Array.from(checkListItems).map(item => {
@@ -429,7 +433,7 @@ function editToDoItem(id) {
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
     const checklistString = toDoForm.elements["checklist"].value;
-    const checklistData = getChecklistData(checklist, checklistString);
+    const checklistData = updateChecklistData(checklist, checklistString);
     const currentItem = currentProject.todos.find((toDo) => toDo.id === id); 
 
     title.textContent = toDoForm.elements["title"].value;
