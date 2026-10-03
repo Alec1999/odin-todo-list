@@ -204,13 +204,6 @@ function renderToDo(toDo) {
     toDoContent.appendChild(toDoArea);
 }
 
-function createChecklistData(checklistString) {
-    return checklistString.split(",").map(item => ({
-        text: item.trim(),
-        checked: false
-    }));
-}
-
 function getTodaysDate() {
     const today = new Date();
 
@@ -248,7 +241,7 @@ function createDefaultToDoItem() {
     );
 
     defaultToDoItem.id = crypto.randomUUID();
-    defaultProjectBtn.dataset.projectId = defaultToDoItem.id;
+    defaultProjectBtn.dataset.projectId = currentProject.id;
     currentProject.todos.push(defaultToDoItem);
 
     renderToDos();
@@ -370,6 +363,13 @@ function renderCheckList(checklistData) {
     });
 
     return checklistContainer;
+}
+
+function createChecklistData(checklistString) {
+    return checklistString.split(",").map(item => ({
+        text: item.trim(),
+        checked: false
+    }));
 }
 
 function UpdateChecklistData(checklist, checklistString) {
