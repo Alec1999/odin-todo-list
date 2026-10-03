@@ -55,18 +55,26 @@
 
         <nav class="main-sidebar">
             <button class="project-btn">Default project</button>
-            <button class="project-btn">Project 2</button>
-            <button class="project-btn">Project 3</button>
 
             <button id="add-project-btn">+ Add Project</button>
         </nav>
 
         <section class="main-section">
             <div class="main-content">
+                <form id="project-form" style="display: none;">
+                    <div>
+                        <label for="project-name">Enter name of project:</label>
+                        <input type="text" name="project-name" id="project-name" required/>
+                    </div>
+                    <div>
+                        <button type="submit" id="submit-project-btn">Submit</button>
+                        <button type="button" id="cancel-project-btn">Cancel</button>
+                    </div>
+                </form>
                 <form id="to-do-form" style="display: none;">
                     <div>
-                        <label for="title"> Enter title:</label>
-                        <input type="text" name="title" id="title" required />
+                        <label for="title">Enter title:</label>
+                        <input type="text" name="title" id="title" required/>
                     </div>
                     <div>
                         <label for="due-date">Enter due-date:</label>

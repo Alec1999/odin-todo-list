@@ -47,6 +47,10 @@ input:user-invalid {
   border-color: red;
 }
 
+#project-form {
+  margin-left: 50px;
+}
+
 .all-content {
   display: flex;
   height: 100vh;
@@ -65,18 +69,6 @@ input:user-invalid {
   flex: 1;
   min-height: 0;
 }
-/* 
-.main-content {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding-top: 30px;
-  justify-items: center;
-  overflow-y: auto;
-  min-height: 0;
-  align-items: start;
-} */
 
 .main-content {
     flex: 1;
@@ -169,5 +161,3 @@ input:user-invalid {
   flex-shrink: 0;
   width: 100%;
 }
-
-

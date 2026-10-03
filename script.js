@@ -10,9 +10,11 @@ class toDoItem {
 
 const addToDoBtn = document.querySelector(".new-to-do");
 let currentId = null;
+const sideBarContent = document.querySelector(".main-sidebar")
 const toDoContent = document.querySelector(".to-do-container");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
+const projectForm = document.querySelector("#project-form");
 
 const projects = [
     {
@@ -59,6 +61,37 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
 }
 
 function initializeEventListeners() {
+    sideBarContent.addEventListener("click", (e) => {
+        const addProjectBtn = e.target.closest("#add-project-btn")
+        const projectBtn = e.target.closest(".project-btn")
+
+        if (addProjectBtn) {
+            showProjectForm();
+        }
+
+        if (projectBtn) {
+            // selectProject(project)
+        }
+    });
+
+    projectForm.addEventListener("click", (e) => {
+        const submitBtn = e.target.closest("#submit-project-btn")
+        const cancelBtn = e.target.closest("#cancel-project-btn")
+
+        if (submitBtn) {
+            e.preventDefault();
+            let projectName = projectForm.elements["project-name"].value;
+            createProject(projectName)
+            selectProject(projectName)
+        }
+
+        if (cancelBtn) {
+            hideProjectForm();
+            resetProjectForm();
+        }
+    })
+
+    // Make enter key work as well
     toDoContent.addEventListener("click", (e) => {
         const deleteBtn = e.target.closest(".delete-btn");
         const editBtn = e.target.closest(".edit-btn");
@@ -83,18 +116,24 @@ function initializeEventListeners() {
     });
 }
 
+function createProject(projectName) {
+    const newProjectBtn = document.createElement("button")
+    newProjectBtn.textContent = projectName;
+    sideBarContent.appendChild(newProjectBtn);
+
+    hideProjectForm();  
+    resetProjectForm();
+}
+
 function selectProject(project) {
     currentProject = project;
     renderToDos();
 }
 
 function renderToDos() {
-    console.log("renderToDos ran");
-    console.log("Todos being rendered:", currentProject.todos);
     toDoContent.innerHTML = "";
 
     for (const toDo of currentProject.todos) {
-        console.log("Rendering:", toDo);
         renderToDo(toDo);
     }
 }
@@ -195,14 +234,7 @@ function createDefaultToDoItem() {
     defaultToDoItem.id = crypto.randomUUID();
     currentProject.todos.push(defaultToDoItem);
 
-    console.log("Project:", currentProject);
-    console.log("Todos:", currentProject.todos);
-
     renderToDos();
-}
-
-function showToDoForm() {
-    toDoForm.style.display = "block";
 }
 
 function createToDoItem() {
@@ -250,7 +282,6 @@ function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
             }
         }
     }
-
 }
 
 function renderIcons(toggleBtn, editBtn, deleteBtn) {
@@ -381,7 +412,7 @@ function populateForm(id) {
 }
 
 function editToDoItem(id) {
-    const { toDoItem, title, dueDate, description, priority, checklist } = getToDoElements(id);
+    const { title, dueDate, description, priority, checklist } = getToDoElements(id);
     const formattedDate = formatDate(toDoForm.elements["dueDate"].value);
 
     const checklistString = toDoForm.elements["checklist"].value;
@@ -413,6 +444,22 @@ function deleteToDoItem(toDoItem) {
     hideToDoForm(toDoForm);
 }
 
+function showProjectForm() {
+    projectForm.style.display = "block";
+}
+
+function hideProjectForm() {
+    projectForm.style.display = "none";
+}
+
+function resetProjectForm() {
+    projectForm.elements["project-name"].value = "";
+}
+
+function showToDoForm() {
+    toDoForm.style.display = "block";
+}
+
 function resetToDoForm(toDoForm) {
     toDoForm.elements["title"].value = "";
     toDoForm.elements["dueDate"].value = "";
@@ -424,7 +471,7 @@ function resetToDoForm(toDoForm) {
     });
 }
 
-function hideToDoForm(toDoForm) {
+function hideToDoForm() {
     toDoForm.style.display = "none";
 }
 
