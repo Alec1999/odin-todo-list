@@ -63,8 +63,6 @@ function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
 }
 
 function initializeEventListeners() {
-    let projectName = "";
-
     sideBarContent.addEventListener("click", (e) => {
         const addProjectBtn = e.target.closest("#add-project-btn")
         const projectBtn = e.target.closest(".project-btn")
@@ -82,15 +80,14 @@ function initializeEventListeners() {
         }
     });
 
-    projectForm.addEventListener("click", (e) => {
-        const submitBtn = e.target.closest("#submit-project-btn")
-        const cancelBtn = e.target.closest("#cancel-project-btn")
+    projectForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let projectName = projectForm.elements["project-name"].value;
+        createProject(projectName)
+    });
 
-        if (submitBtn) {
-            e.preventDefault();
-            projectName = projectForm.elements["project-name"].value;
-            createProject(projectName)
-        }
+    projectForm.addEventListener("click", (e) => {
+        const cancelBtn = e.target.closest("#cancel-project-btn")
 
         if (cancelBtn) {
             hideProjectForm();
