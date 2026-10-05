@@ -47,8 +47,25 @@ input:user-invalid {
   border-color: red;
 }
 
+.add-project-container {
+  display: flex;
+  justify-content: center;
+}
+
 #project-form {
   margin-left: 50px;
+}
+
+.project-btn {
+  width: 100%;
+}
+
+.project-btns-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+  overflow: auto;
 }
 
 .all-content {
@@ -61,6 +78,11 @@ input:user-invalid {
   width: 25vw;
   max-width: 300px;
   min-width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
 }
 
 .main-section {
@@ -71,18 +93,18 @@ input:user-invalid {
 }
 
 .main-content {
-    flex: 1;
-    padding-top: 30px;
-    overflow-y: auto;
-    min-height: 0;
+  flex: 1;
+  padding-top: 30px;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .to-do-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    justify-items: center;
-    align-items: start;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  align-items: start;
 }
 
 .to-do-item {

@@ -15,6 +15,7 @@ const sideBarContent = document.querySelector(".main-sidebar");
 const toDoContent = document.querySelector(".to-do-container");
 const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
+const projectBtnsContainer = document.querySelector(".project-btns-container");
 const projectForm = document.querySelector("#project-form");
 
 const projects = [
@@ -97,7 +98,6 @@ function initializeEventListeners() {
         }
     })
 
-    // Make enter key work as well
     toDoContent.addEventListener("click", (e) => {
         const deleteBtn = e.target.closest(".delete-btn");
         const editBtn = e.target.closest(".edit-btn");
@@ -134,12 +134,12 @@ function createProject(projectName) {
     newProjectBtn.textContent = projectName;
     newProjectBtn.dataset.projectId = newProject.id;
     newProjectBtn.classList.add("project-btn");
-    sideBarContent.appendChild(newProjectBtn);
+    projectBtnsContainer.appendChild(newProjectBtn);
 
     hideProjectForm();  
     resetProjectForm();
 
-    // Select newly made project
+    selectProject(newProject);
 }
 
 function selectProject(project) {
@@ -462,6 +462,8 @@ function deleteToDoItem(toDoItem) {
 }
 
 function showProjectForm() {
+    hideToDoForm(toDoForm);
+    resetToDoForm(toDoForm);
     projectForm.style.display = "block";
 }
 
@@ -474,6 +476,8 @@ function resetProjectForm() {
 }
 
 function showToDoForm() {
+    hideProjectForm();
+    resetProjectForm();
     toDoForm.style.display = "block";
 }
 
