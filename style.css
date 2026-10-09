@@ -56,10 +56,6 @@ input:user-invalid {
   margin-left: 50px;
 }
 
-.project-btn {
-  width: 100%;
-}
-
 .project-btns-container {
   display: flex;
   flex-direction: column;
@@ -68,9 +64,15 @@ input:user-invalid {
   overflow: auto;
 }
 
+.project-btn {
+  width: 100%;
+}
+
 .project-btn-active {
-    background-color: #d0d0d0;
-    border-left: 4px solid #333;
+  background-color: #e0e0e0;
+  /* color: #f4f4f5; */
+  font-weight: bold;
+  border: solid 2.5px black;
 }
 
 .all-content {
@@ -79,7 +81,7 @@ input:user-invalid {
 }
 
 .main-sidebar {
-  border-right: solid 1px rgb(176, 176, 176);
+  border-right: solid 2px rgb(156, 156, 156);
   width: 25vw;
   max-width: 300px;
   min-width: 200px;
@@ -99,7 +101,6 @@ input:user-invalid {
 
 .main-content {
   flex: 1;
-  padding-top: 30px;
   overflow-y: auto;
   min-height: 0;
 }
@@ -153,7 +154,6 @@ input:user-invalid {
   position: absolute;
   top: 0;
   right: 0;
-
   display: flex;
   justify-content: flex-end;
   gap: 8px;
@@ -183,8 +183,12 @@ input:user-invalid {
 }
 
 .footer-nav {
-  border: 2px solid black;
+  border-top: solid 2px rgb(156, 156, 156);
   background-color: white;
   flex-shrink: 0;
   width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
