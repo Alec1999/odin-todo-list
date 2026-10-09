@@ -68,13 +68,18 @@ input:user-invalid {
   overflow: auto;
 }
 
+.project-btn-active {
+    background-color: #d0d0d0;
+    border-left: 4px solid #333;
+}
+
 .all-content {
   display: flex;
   height: 100vh;
 }
 
 .main-sidebar {
-  background-color: rgb(197, 197, 197);
+  border-right: solid 1px rgb(176, 176, 176);
   width: 25vw;
   max-width: 300px;
   min-width: 200px;

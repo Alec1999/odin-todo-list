@@ -142,6 +142,14 @@ function createProject(projectName) {
 function selectProject(project) {
     currentProject = project;
     renderToDos();
+
+    const projectBtns = document.querySelectorAll(".project-btn")
+
+    projectBtns.forEach((projectBtn) => {
+        projectBtn.classList.toggle("project-btn-active",
+            currentProject.id === projectBtn.dataset.projectId
+        );
+    });
 }
 
 function renderToDos() {
@@ -239,6 +247,7 @@ function createDefaultToDoItem() {
 
     defaultToDoItem.id = crypto.randomUUID();
     defaultProjectBtn.dataset.projectId = currentProject.id;
+    defaultProjectBtn.classList.toggle("project-btn-active");
     currentProject.todos.push(defaultToDoItem);
 
     renderToDos();
