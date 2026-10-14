@@ -148,9 +148,13 @@ function renderProjectBtns() {
         projectBtn.dataset.projectId = project.id;
         projectBtn.classList.add("project-btn");
 
+        projectBtn.classList.toggle(
+            "project-btn-active",
+            project.id === currentProject.id
+        );
+
         projectBtnsContainer.appendChild(projectBtn);
-        projectBtn.classList.toggle("project-btn-active");
-    }) 
+    }); 
 }
 
 function createProject(projectName) {
