@@ -17,16 +17,36 @@ const todaysDate = getTodaysDate();
 const toDoForm = document.querySelector("#to-do-form");
 const projectBtnsContainer = document.querySelector(".project-btns-container");
 const projectForm = document.querySelector("#project-form");
-
-const projects = [
-    {
-        id: crypto.randomUUID(),
-        name: "Default Project",
-        todos: []
-    }
-];
+const projects = loadProjects();
 
 let currentProject = projects[0];
+
+function saveProjects() {
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(projects)
+    );
+}
+
+function loadProjects() {
+    const savedProjects = (localStorage.getItem("projects"));
+
+    if (savedProjects) {
+        try {
+            return JSON.parse(savedProjects);
+        } catch (error) {
+            console.error("Could not load saved projects", error)
+        }
+    }
+    
+    return [
+            {
+                id: crypto.randomUUID(),
+                name: "Default Project",
+                todos: []
+            }
+        ];
+}
 
 function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
     deleteBtn.addEventListener("mouseenter", updateTrashIcon)
@@ -119,6 +139,20 @@ function initializeEventListeners() {
     });
 }
 
+function renderProjectBtns() {
+    projectBtnsContainer.innerHTML = "";
+
+    projects.forEach((project) => {
+        const projectBtn = document.createElement("button")
+        projectBtn.textContent = project.name;
+        projectBtn.dataset.projectId = project.id;
+        projectBtn.classList.add("project-btn");
+
+        projectBtnsContainer.appendChild(projectBtn);
+        projectBtn.classList.toggle("project-btn-active");
+    }) 
+}
+
 function createProject(projectName) {
     const newProject = {
         id: crypto.randomUUID(),
@@ -137,6 +171,7 @@ function createProject(projectName) {
     resetProjectForm();
 
     selectProject(newProject);
+    saveProjects();
 }
 
 function selectProject(project) {
@@ -278,6 +313,7 @@ function addToDoItem(formData) {
 
     renderToDos();
     resetToDoForm(toDoForm);
+    saveProjects();
 }
 
 function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
@@ -453,6 +489,7 @@ function editToDoItem(id) {
     currentId = null;
     hideToDoForm(toDoForm);
     resetToDoForm(toDoForm);
+    saveProjects();
 }
 
 function deleteToDoItem(toDoItem) {
@@ -504,3 +541,5 @@ function hideToDoForm() {
 
 initializeEventListeners();
 createDefaultToDoItem();
+loadProjects();
+renderProjectBtns();

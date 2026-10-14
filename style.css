@@ -70,7 +70,6 @@ input:user-invalid {
 
 .project-btn-active {
   background-color: #e0e0e0;
-  /* color: #f4f4f5; */
   font-weight: bold;
   border: solid 2.5px black;
 }
@@ -190,5 +189,4 @@ input:user-invalid {
   padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
