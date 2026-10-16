@@ -21,6 +21,17 @@ const projects = loadProjects();
 
 let currentProject = projects[0];
 
+function initializeApp() {
+    if (localStorage.getItem("projects") === null) {
+        createDefaultToDoItem()
+    }
+
+    renderToDos();
+    initializeEventListeners();
+    loadProjects();
+    renderProjectBtns();
+}
+
 function saveProjects() {
     localStorage.setItem(
         "projects",
@@ -39,13 +50,13 @@ function loadProjects() {
         }
     }
     
-    return [
-            {
-                id: crypto.randomUUID(),
-                name: "Default Project",
-                todos: []
-            }
-        ];
+    const defaultProject = {
+        id: crypto.randomUUID(),
+        name: "Default Project",
+        todos: []
+    }
+
+    return [defaultProject];
 }
 
 function initializeRenderIcons(deleteBtn, editBtn, toDoArea) {
@@ -289,8 +300,6 @@ function createDefaultToDoItem() {
     defaultProjectBtn.dataset.projectId = currentProject.id;
     defaultProjectBtn.classList.toggle("project-btn-active");
     currentProject.todos.push(defaultToDoItem);
-
-    renderToDos();
 }
 
 function createToDoItem() {
@@ -506,7 +515,6 @@ function deleteToDoItem(toDoItem) {
         } 
     }
 
-    toDoItem.remove();
     hideToDoForm(toDoForm);
     saveProjects();
     renderToDos();
@@ -547,7 +555,4 @@ function hideToDoForm() {
     toDoForm.style.display = "none";
 }
 
-initializeEventListeners();
-createDefaultToDoItem();
-loadProjects();
-renderProjectBtns();
+initializeApp();
