@@ -104,6 +104,7 @@ function initializeEventListeners() {
         e.preventDefault();
         let projectName = projectForm.elements["project-name"].value;
         createProject(projectName)
+        console.log("Created!")
     });
 
     projectForm.addEventListener("click", (e) => {
@@ -418,7 +419,7 @@ function createChecklistData(checklistString) {
     }));
 }
 
-function UpdateChecklistData(checklist, checklistString) {
+function updateChecklistData(checklist, checklistString) {
     const checkListItems = checklist.querySelectorAll(".checklist-item");
 
     const oldItems = Array.from(checkListItems).map(item => {
