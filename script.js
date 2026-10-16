@@ -334,6 +334,7 @@ function selectToDoItem(deleteBtn, editBtn, toggleBtn, toDoItem) {
         }
 
         if (deleteBtn) {
+            console.log(toDoItem);
             if (confirm("Are you sure you want to delete this to-do item?")) {
                 deleteToDoItem(toDoItem);
             }
@@ -498,15 +499,17 @@ function editToDoItem(id) {
 }
 
 function deleteToDoItem(toDoItem) {
-    for (let i = 0; i < toDoItems.length; i++) {
-        if (toDoItems[i].id === toDoItem.id) {
-            toDoItems.splice(i, 1);
+    for (let i = 0; i < currentProject.todos.length; i++) {
+        if (currentProject.todos[i].id === toDoItem.id) {
+            currentProject.todos.splice(i, 1);
             break;
         } 
     }
 
     toDoItem.remove();
     hideToDoForm(toDoForm);
+    saveProjects();
+    renderToDos();
 }
 
 function showProjectForm() {
